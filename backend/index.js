@@ -16,12 +16,15 @@ async function initDB() {
         const uri = process.env.MONGODB_URI;
         if (!uri) throw new Error('MONGODB_URI is missing from Environment Variables');
         const db = await mongoose.connect(uri, {
-            serverSelectionTimeoutMS: 8000,
+            serverSelectionTimeoutMS: 5000,
             connectTimeoutMS: 10000
         });
+
+        // ONLY seed in development — this saves 5-10 seconds on Vercel boot-up
         if (process.env.NODE_ENV !== 'production') {
             await seedDefaultData();
         }
+
         cachedDb = db;
         return db;
     } catch (err) {
@@ -166,36 +169,6 @@ const userSchema = new mongoose.Schema({
 });
 userSchema.set('toJSON', { transform: commonTransform });
 const User = mongoose.models.User || mongoose.model('User', userSchema);
-
-// Database Connection
-let cachedDb = null;
-async function initDB() {
-    if (cachedDb && mongoose.connection.readyState === 1) {
-        return cachedDb;
-    }
-    try {
-        const uri = process.env.MONGODB_URI;
-        if (!uri) {
-            throw new Error('MONGODB_URI is not defined in Environment Variables');
-        }
-
-        // Add timeout options to fail faster if the IP is not whitelisted
-        const db = await mongoose.connect(uri, {
-            serverSelectionTimeoutMS: 5000,
-            socketTimeoutMS: 45000,
-        });
-
-        console.log('Successfully connected to MongoDB Atlas');
-
-        // Seed default HODs, Interests and Users
-        await seedDefaultData();
-        cachedDb = db;
-        return db;
-    } catch (error) {
-        console.error('Error connecting to MongoDB:', error.message);
-        throw error; // Throw so middleware can catch it
-    }
-}
 
 async function seedDefaultData() {
     // Seed default interests
@@ -688,15 +661,13 @@ app.get('/api/registrations/export', async (req, res) => {
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
 });
 
+// Delete Registration
 app.delete('/api/registrations/:id', async (req, res) => {
     try {
         await EventRegistration.findByIdAndDelete(req.params.id);
         res.json({ success: true, message: 'Registration deleted' });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
 });
-
-// Remove bottom health probe
-// ... (start server follows)
 
 // Start Server
 if (process.env.NODE_ENV !== 'production') {
