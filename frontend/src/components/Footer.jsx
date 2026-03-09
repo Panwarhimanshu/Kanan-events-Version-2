@@ -20,92 +20,45 @@ function Footer() {
             </section>
 
 
-            <footer className="footer" id="contact">
+            <footer className="footer" id="contact" style={{ background: '#f0f9ff' }}>
                 <div className="container">
-                    {/* Language Courses Row */}
-                    <div style={{ marginBottom: '40px', paddingBottom: '30px', borderBottom: '1px solid #dae5f0' }}>
-                        <h4 style={{ fontSize: '15px', color: '#002D6B' }}>Language Courses In Vadodara</h4>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px' }}>
-                            <a href="#">Spoken English Classes in Vadodara</a>
-                            <a href="#">French Classes in Vadodara</a>
-                            <a href="#">German Classes in Vadodara</a>
+                    <div className="footer-grid">
+                        <div className="footer-brand">
+                            <img src={logoUrl} alt="Kanan" style={{ height: '38px', marginBottom: '16px' }} />
+                            <p style={{ lineHeight: '1.6', opacity: '0.8', marginBottom: '20px', color: '#475569' }}>
+                                India's leading Study Abroad consultant with 25+ years of experience helping students achieve their global dreams.
+                            </p>
+                        </div>
+                        <div>
+                            <h4>Our Events</h4>
+                            <ul>
+                                <li><a href="#">Kanan Student Visa Fair</a></li>
+                                <li><a href="#">Abroad Education Expo</a></li>
+                                <li><a href="#">Mega Mock Test Drive</a></li>
+                                <li><a href="#">Parents–Teacher Meets</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Destinations</h4>
+                            <ul>
+                                <li><a href="#">Study in Canada</a></li>
+                                <li><a href="#">Study in USA</a></li>
+                                <li><a href="#">Study in UK</a></li>
+                                <li><a href="#">Study in Germany</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul style={{ color: '#475569' }}>
+                                <li>📱 24×7: +91 6356 568111</li>
+                                <li>📧 <a href="mailto:baroda@kananinternational.com">baroda@kananinternational.com</a></li>
+                                <li>📍 Vadodara, Gujarat</li>
+                            </ul>
                         </div>
                     </div>
-
-                    <div className="footer-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px' }}>
-                        {/* Popular Intakes */}
-                        <div>
-                            <h4>Popular Study Abroad Intake Blogs</h4>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '6px', fontSize: '13px' }}>
-                                <a href="#">Intakes in Canada</a>
-                                <a href="#">Winter Intake In Canada</a>
-                                <a href="#">May Intake In Canada</a>
-                                <a href="#">September intake in Canada</a>
-                                <a href="#">Intakes in USA</a>
-                                <a href="#">Spring intake in USA</a>
-                                <a href="#">Fall Intake in USA</a>
-                                <a href="#">Summer Intake in USA</a>
-                                <a href="#">Intakes in UK</a>
-                                <a href="#">January Intake In UK</a>
-                                <a href="#">May Intake In UK</a>
-                                <a href="#">September intake in UK</a>
-                                <a href="#">Intakes in Australia</a>
-                                <a href="#">February intake in Australia</a>
-                                <a href="#">Intakes In Germany</a>
-                                <a href="#">Summer Intake In Germany</a>
-                                <a href="#">Winter intake in Germany</a>
-                                <a href="#">Intakes In Ireland</a>
-                                <a href="#">September Intake In Ireland</a>
-                                <a href="#">January intake in Ireland</a>
-                                <a href="#">Intakes in New Zealand</a>
-                                <a href="#">November Intake In Australia</a>
-                            </div>
-                        </div>
-
-                        {/* Featured Blogs */}
-                        <div>
-                            <h4>Featured Blogs</h4>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '6px', fontSize: '13px' }}>
-                                <a href="#">IELTS</a>
-                                <a href="#">PTE Resources</a>
-                                <a href="#">IELTS Speaking Mock Test</a>
-                                <a href="#">IELTS Eligibility</a>
-                                <a href="#">PTE</a>
-                                <a href="#">GRE</a>
-                                <a href="#">IELTS Reading Answers</a>
-                                <a href="#">IELTS Syllabus</a>
-                                <a href="#">IELTS Resources</a>
-                                <a href="#">IELTS General Reading PDF</a>
-                                <a href="#">IELTS Reading PDF</a>
-                                <a href="#">IELTS Listening Answers</a>
-                                <a href="#">GRE Resources</a>
-                            </div>
-                        </div>
-
-                        {/* Quick Links Column */}
-                        <div>
-                            <h4>Quick Links</h4>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '6px' }}>
-                                <a href="#">About</a>
-                                <a href="#">Blog</a>
-                                <a href="#">Contact Us</a>
-                                <a href="#">Student Reviews</a>
-                                <a href="#">Work with Us</a>
-                                <div style={{ marginTop: '15px', fontWeight: '700', color: '#003399' }}>
-                                    📱 +91 6356 568111
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div className="footer-bottom">
-                        <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
-                            <p style={{ marginRight: '10px' }}>Copyright © 2026 KANAN.CO All rights reserved.</p>
-                            <a href="#" style={{ color: '#003399' }}>Refund Policy</a>
-                            <a href="#" style={{ color: '#003399' }}>Privacy Policy</a>
-                            <a href="#" style={{ color: '#003399' }}>Terms of Service</a>
-                            <a href="#" style={{ color: '#003399' }}>Disclaimer</a>
-                        </div>
+                        <p>© 2026 Kanan International. All rights reserved.</p>
+                        <p style={{ fontWeight: '700', color: '#003399' }}>Let's Grow Globally</p>
                     </div>
                 </div>
             </footer>
