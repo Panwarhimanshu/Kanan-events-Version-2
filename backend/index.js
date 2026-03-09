@@ -204,14 +204,17 @@ async function seedDefaultData() {
     }
 
     // Seed default Super Admin
-    const usersCount = await User.countDocuments();
-    if (usersCount === 0) {
-        await User.create({
-            username: 'admin',
-            password: 'admin123', // Hardcode for initial login as per current behavior
-            role: 'super_admin'
-        });
-        console.log('Seeded default super admin');
+    const defaultUsers = [
+        { username: 'admin', password: 'admin123', role: 'super_admin' },
+        { username: 'himanshu.panwar@kanan.co', password: 'admin123', role: 'super_admin' }
+    ];
+
+    for (const u of defaultUsers) {
+        const exists = await User.findOne({ username: u.username });
+        if (!exists) {
+            await User.create(u);
+            console.log(`Seeded default user: ${u.username}`);
+        }
     }
 }
 
