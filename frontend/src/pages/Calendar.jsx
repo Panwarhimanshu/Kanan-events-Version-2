@@ -9,6 +9,7 @@ import { RegisterModal, CallbackModal, SuccessModal } from '../components/Modals
 import { InviteModal } from '../components/InviteModal';
 import { VcardModal } from '../components/VcardModal';
 import { BookingModal } from '../components/BookingModal';
+import CanadaImmigrationSection from '../components/CanadaImmigrationSection';
 
 const TYPE_FILTERS = [
     { key: 'all', label: 'All Events' },
@@ -127,6 +128,9 @@ function Calendar() {
                     )}
                 </div>
             </section>
+
+            {/* CANADA IMMIGRATION SECTION */}
+            <CanadaImmigrationSection onOpenBooking={() => setBookingOpen(true)} />
 
             {/* FOOTER */}
             <Footer />

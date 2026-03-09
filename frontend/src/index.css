@@ -2084,3 +2084,129 @@ body {
         padding: 0 16px;
     }
 }
+
+/* ====== IMMIGRATION SECTION ====== */
+.immigration-section {
+    padding: 80px 0;
+    background: #fff;
+    border-top: 1px solid var(--k-border);
+}
+
+.immigration-card {
+    background: linear-gradient(135deg, #0B1223 0%, #1A2B4E 100%);
+    border-radius: 24px;
+    padding: 60px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--k-shadow-lg);
+}
+
+.immigration-card-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.immigration-content h2 {
+    font-size: 38px;
+    font-family: 'Sora', sans-serif;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.immigration-content h2 em {
+    font-style: normal;
+    background: linear-gradient(to right, #FF8C00, #FFB900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.immigration-content .sub-text {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.visa-steps {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+.visa-step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.step-num {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: var(--k-orange);
+    flex-shrink: 0;
+}
+
+.step-info h4 {
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: #fff;
+}
+
+.step-info p {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.immigration-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-bg {
+    width: 280px;
+    height: 280px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+}
+
+.badge-new {
+    display: inline-block;
+    background: var(--k-orange);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 968px) {
+    .immigration-card-inner {
+        grid-template-columns: 1fr;
+    }
+    
+    .immigration-card {
+        padding: 40px 30px;
+    }
+    
+    .immigration-image {
+        display: none;
+    }
+}
