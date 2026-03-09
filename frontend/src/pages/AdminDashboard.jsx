@@ -374,16 +374,22 @@ function AdminDashboard() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${API_URL}/api/login`, { username, password });
+            // Trim username to prevent accidental space issues
+            const res = await axios.post(`${API_URL}/api/login`, {
+                username: username.trim(),
+                password
+            });
             if (res.data.success) {
                 sessionStorage.setItem('adminLoggedIn', 'true');
                 sessionStorage.setItem('userRole', res.data.role);
                 sessionStorage.setItem('username', res.data.username);
                 setIsLogged(true);
                 setUserRole(res.data.role);
+                setUsername(res.data.username); // Ensure synced with potentially trimmed value
             }
         } catch (err) {
-            alert(err.response?.data?.message || 'Login failed');
+            console.error('Login error:', err);
+            alert(err.response?.data?.message || 'Login failed - check your credentials or database connection');
         }
     };
 
