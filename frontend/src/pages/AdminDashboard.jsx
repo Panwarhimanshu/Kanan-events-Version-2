@@ -297,7 +297,11 @@ function AdminDashboard() {
                 await axios.post(`${API_URL}/api/hods`, formDataMulti, { headers: { 'Content-Type': 'multipart/form-data' } });
             }
             resetHodForm(); setEditingHod(false); fetchHods();
-        } catch (err) { console.error(err); alert('Error saving HOD'); }
+        } catch (err) {
+            console.error(err);
+            const msg = err.response?.data?.message || err.message || 'Error saving HOD';
+            alert(`Error: ${msg}`);
+        }
     };
 
     const deleteHod = async (id) => {
@@ -593,7 +597,7 @@ function AdminDashboard() {
                                 )}
                                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', background: '#0052CC', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: '700', fontSize: '14px', cursor: 'pointer', margin: 0 }}>
                                     ⬆ Import CSV
-                                    <input type="file" accept=".csv" style={{ display: 'none' }} onChange={async (e) => {
+                                    <input type="file" accept=".csv" onChange={async (e) => {
                                         const file = e.target.files[0];
                                         if (!file) return;
                                         const confirm = window.confirm('Import events from CSV?');
