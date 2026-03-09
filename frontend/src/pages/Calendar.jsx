@@ -37,6 +37,7 @@ function Calendar() {
     const [bookingOpen, setBookingOpen] = useState(false);
     const [isCanadaBooking, setIsCanadaBooking] = useState(false);
     const [isRefusalBooking, setIsRefusalBooking] = useState(false);
+    const [isGermanyBooking, setIsGermanyBooking] = useState(false);
 
     useEffect(() => {
         axios.get(`${API_URL}/api/events?activeOnly=true`)
@@ -131,10 +132,11 @@ function Calendar() {
                 </div>
             </section>
 
-            {/* CANADA IMMIGRATION & REFUSAL SECTIONS */}
+            {/* CANADA, REFUSAL & GERMANY SECTIONS */}
             <CanadaImmigrationSection
                 onOpenCanadaBooking={() => { setIsCanadaBooking(true); setBookingOpen(true); }}
                 onOpenRefusalBooking={() => { setIsRefusalBooking(true); setBookingOpen(true); }}
+                onOpenGermanyBooking={() => { setIsGermanyBooking(true); setBookingOpen(true); }}
             />
 
             {/* FOOTER */}
@@ -198,9 +200,10 @@ function Calendar() {
             />
             <BookingModal
                 isOpen={bookingOpen}
-                onClose={() => { setBookingOpen(false); setIsCanadaBooking(false); setIsRefusalBooking(false); }}
+                onClose={() => { setBookingOpen(false); setIsCanadaBooking(false); setIsRefusalBooking(false); setIsGermanyBooking(false); }}
                 canadaOnly={isCanadaBooking || isRefusalBooking}
                 refusalOnly={isRefusalBooking}
+                germanyOnly={isGermanyBooking}
             />
         </>
     );

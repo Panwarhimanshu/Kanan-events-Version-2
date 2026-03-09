@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking }) {
+function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, onOpenGermanyBooking }) {
     return (
         <section className="immigration-section" id="immigration">
             <div className="container">
@@ -43,6 +43,29 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking })
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <line x1="12" y1="8" x2="12" y2="12"></line>
                                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                {/* BOX 3: Germany Admission */}
+                <div className="immigration-card" style={{ background: '#f5f0ff', borderColor: '#e0d0ff' }}>
+                    <div className="immigration-card-inner">
+                        <div className="immigration-content">
+                            <h2 style={{ color: '#4B0082' }}>Get Germany Admission Information</h2>
+                            <p className="sub-text" style={{ color: '#4B0082' }}>
+                                Complete guidance for: <strong>Admission in Public Universities</strong> • <strong>Admission in Private Universities</strong>
+                                <br />Unlock your path to high-quality German education.
+                            </p>
+                            <button className="btn-book" style={{ background: '#7B2FF7' }} onClick={onOpenGermanyBooking}>
+                                Book Free counselling
+                            </button>
+                        </div>
+                        <div className="immigration-bg-icon">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#4B0082" strokeWidth="1">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
                             </svg>
                         </div>
                     </div>
