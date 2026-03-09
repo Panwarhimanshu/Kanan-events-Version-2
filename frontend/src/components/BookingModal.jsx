@@ -23,7 +23,7 @@ function generateICS(dateStr, timeStr, name, counsellor, mode) {
         `DESCRIPTION:${desc}`, `LOCATION:${location}`, 'STATUS:CONFIRMED', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
 }
 
-export function BookingModal({ isOpen, onClose, canadaOnly = false }) {
+export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly = false }) {
     const [step, setStep] = useState(1);
     const [mode, setMode] = useState('inperson');
     const [calMonth, setCalMonth] = useState(2);
@@ -114,11 +114,11 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false }) {
                 body: JSON.stringify({
                     name: form.name,
                     mobile: form.phone,
-                    preferred_country: canadaOnly ? 'Canada' : (form.dest || ''),
-                    assigned_counselor: canadaOnly ? (selCounsellor?.name || 'Anil Goel') : (selCounsellor?.name || ''),
-                    assigned_email: canadaOnly ? 'anilgoyal@kananinternational.com' : (selCounsellor?.email || ''),
+                    preferred_country: (canadaOnly || refusalOnly) ? 'Canada' : (form.dest || ''),
+                    assigned_counselor: (canadaOnly || refusalOnly) ? (selCounsellor?.name || 'Anil Goel') : (selCounsellor?.name || ''),
+                    assigned_email: (canadaOnly || refusalOnly) ? 'anilgoyal@kananinternational.com' : (selCounsellor?.email || ''),
                     status: 'Pending',
-                    notes: `${canadaOnly ? '[CANADA IMMIGRATION] · ' : ''}📅 ${dateLabel} · 🕐 ${selTime} · ${mode === 'inperson' ? 'In-Person' : 'Online'} · Ref: ${bookRef}${form.notes ? ' · ' + form.notes : ''}`
+                    notes: `${refusalOnly ? '[VISA REFUSAL CASE] · ' : canadaOnly ? '[CANADA IMMIGRATION] · ' : ''}📅 ${dateLabel} · 🕐 ${selTime} · ${mode === 'inperson' ? 'In-Person' : 'Online'} · Ref: ${bookRef}${form.notes ? ' · ' + form.notes : ''}`
                 })
             });
         } catch (err) {
@@ -209,7 +209,7 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false }) {
         <div className="modal-overlay active" onClick={e => { if (e.target === e.currentTarget) { onClose(); reset(); } }}>
             <div className="modal book-modal-inner">
                 <div className="modal-head">
-                    <h3>📅 Book Free 1:1 Counselling</h3>
+                    <h3>{refusalOnly ? '⚠️ Expert Opinion on Visa Refusal' : '📅 Book Free 1:1 Counselling'}</h3>
                     <button className="modal-x" onClick={() => { onClose(); reset(); }}>✕</button>
                 </div>
                 <div className="modal-body">

@@ -2091,20 +2091,28 @@ body {
     background: #fff;
 }
 
+.immigration-section .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
 .immigration-card {
     background: #f0f5ff;
     border: 1px solid #d0dfff;
     border-radius: 20px;
-    padding: 40px;
+    padding: 32px;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .immigration-card-inner {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    gap: 30px;
+    height: 100%;
 }
 
 .immigration-content {
@@ -2112,32 +2120,35 @@ body {
 }
 
 .immigration-content h2 {
-    font-size: 28px;
+    font-size: 24px;
     color: #003399;
     font-weight: 800;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.3;
 }
 
 .immigration-content .sub-text {
-    font-size: 18px;
+    font-size: 16px;
     color: #003399;
     opacity: 0.9;
     margin-bottom: 24px;
     line-height: 1.5;
-    max-width: 80%
 }
 
 .btn-book {
     background: #00964f;
     color: #fff;
-    padding: 12px 32px;
-    border-radius: 12px;
+    padding: 10px 24px;
+    border-radius: 10px;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
     border: none;
     cursor: pointer;
     transition: background 0.2s;
+    align-self: flex-start;
+    position: relative;
+    z-index: 5;
 }
 
 .btn-book:hover {
@@ -2146,24 +2157,24 @@ body {
 
 .immigration-bg-icon {
     position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: -10px;
+    bottom: -10px;
     opacity: 0.05;
     pointer-events: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 968px) {
+    .immigration-section .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
     .immigration-card {
-        padding: 30px 20px;
+        padding: 24px;
     }
 
-    .immigration-content .sub-text {
-        max-width: 100%;
-        font-size: 16px;
-    }
-
-    .immigration-bg-icon {
-        display: none;
+    .immigration-content h2 {
+        font-size: 20px;
     }
 }
