@@ -2113,7 +2113,7 @@ body {
     font-weight: 800;
 }
 
-.immigration-section .container {
+.expert-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
@@ -2130,6 +2130,7 @@ body {
     flex-direction: column;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    height: 100%;
 }
 
 .immigration-card:hover {
@@ -2142,12 +2143,14 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    position: relative;
 }
 
 .immigration-content {
     display: flex;
     flex-direction: column;
     height: 100%;
+    z-index: 2;
 }
 
 .immigration-content h2 {
@@ -2165,7 +2168,6 @@ body {
     line-height: 1.6;
     margin-bottom: 30px;
     flex-grow: 1;
-    /* Pushes button to bottom */
 }
 
 .btn-book {
@@ -2178,11 +2180,8 @@ body {
     border: none;
     cursor: pointer;
     transition: all 0.2s;
-    align-self: flex-start;
     width: 100%;
     text-align: center;
-    position: relative;
-    z-index: 5;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -2199,6 +2198,7 @@ body {
     opacity: 0.08;
     pointer-events: none;
     transition: all 0.5s ease;
+    z-index: 1;
 }
 
 .immigration-card:hover .immigration-bg-icon {
@@ -2207,21 +2207,23 @@ body {
 }
 
 @media (max-width: 1200px) {
-    .immigration-section .container {
+    .expert-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
+@media (max-width: 768px) {
+    .section-title-sm h2 {
+        font-size: 28px;
+    }
+}
+
 @media (max-width: 640px) {
-    .immigration-section .container {
+    .expert-grid {
         grid-template-columns: 1fr;
     }
 
     .immigration-section {
         padding: 50px 0;
-    }
-
-    .section-title-sm h2 {
-        font-size: 28px;
     }
 }

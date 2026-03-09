@@ -9,7 +9,7 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                     <h2>Our Specialist Services</h2>
                 </div>
 
-                <div className="container" style={{ display: 'grid', gridTemplateColumns: 'inherit', gap: 'inherit', padding: 0, width: '100%', maxWidth: '100%' }}>
+                <div className="expert-grid">
                     {/* BOX 1: Canada Immigration */}
                     <div className="immigration-card" style={{ background: '#F0F7FF', borderColor: '#D0E3FF' }}>
                         <div className="immigration-card-inner">
