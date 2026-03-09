@@ -7,46 +7,23 @@ function CanadaImmigrationSection({ onOpenBooking }) {
                 <div className="immigration-card">
                     <div className="immigration-card-inner">
                         <div className="immigration-content">
-                            <span className="badge-new">EXPERT GUIDE</span>
-                            <h2>How to Get an Immigration <em>Visa in Canada</em></h2>
-                            <p className="sub-text">Navigating Canadian immigration can be complex. From Express Entry to PNP, we're here to guide you every step of the way.</p>
+                            <h2>How to Get an Immigration Visa in Canada</h2>
+                            <p className="sub-text">
+                                Get expert guidance on Express Entry, PNP, and Study-to-PR paths.
+                                Our certified consultants help you navigate the complex Canadian immigration process
+                                to achieve your dream of living and working in Canada.
+                            </p>
 
-                            <div className="visa-steps">
-                                <div className="visa-step">
-                                    <div className="step-num">01</div>
-                                    <div className="step-info">
-                                        <h4>Express Entry</h4>
-                                        <p>The fastest way for skilled workers who want to live and work in Canada permanently.</p>
-                                    </div>
-                                </div>
-                                <div className="visa-step">
-                                    <div className="step-num">02</div>
-                                    <div className="step-info">
-                                        <h4>Provincial Nominee (PNP)</h4>
-                                        <p>Each province has its own immigration streams for regions across the country.</p>
-                                    </div>
-                                </div>
-                                <div className="visa-step">
-                                    <div className="step-num">03</div>
-                                    <div className="step-info">
-                                        <h4>Study-to-PR Path</h4>
-                                        <p>Turn your education into a permanent residence with our strategic planning.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div style={{ marginTop: '32px' }}>
-                                <button className="btn btn-orange btn-lg" onClick={onOpenBooking}>
-                                    Book Free counselling
-                                </button>
-                            </div>
+                            <button className="btn-book" onClick={onOpenBooking}>
+                                Book Free counselling
+                            </button>
                         </div>
 
-                        <div className="immigration-image">
-                            {/* The generated image would be used here in a real production environment or if I could reference it directly. I'll use a styled div with a flag icon for now. */}
-                            <div className="map-bg">
-                                <span className="flag-emoji">🇨🇦</span>
-                            </div>
+                        <div className="immigration-bg-icon">
+                            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#003399" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
                         </div>
                     </div>
                 </div>
