@@ -4,7 +4,11 @@ const mongoose = require('mongoose');
 const dns = require('dns');
 
 // Force use Google DNS for SRV record resolution (IPS workaround)
-dns.setServers(['8.8.8.8', '8.8.4.4']);
+try {
+    dns.setServers(['8.8.8.8', '8.8.4.4']);
+} catch (e) {
+    console.warn('DNS setServers not supported on this environment, skipping...');
+}
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
