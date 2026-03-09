@@ -8,16 +8,26 @@ const fs = require('fs');
 const csvParser = require('csv-parser');
 const { Readable } = require('stream');
 
-// Database Connection Logic
+// Database Connection Logic (On-Demand Only)
 let cachedDb = null;
 async function initDB() {
-    if (cachedDb && mongoose.connection.readyState === 1) return cachedDb;
-    const uri = process.env.MONGODB_URI;
-    if (!uri) throw new Error('MONGODB_URI is missing');
-    const db = await mongoose.connect(uri, { serverSelectionTimeoutMS: 10000 });
-    if (process.env.NODE_ENV !== 'production') await seedDefaultData();
-    cachedDb = db;
-    return db;
+    try {
+        if (cachedDb && mongoose.connection.readyState === 1) return cachedDb;
+        const uri = process.env.MONGODB_URI;
+        if (!uri) throw new Error('MONGODB_URI is missing from Environment Variables');
+        const db = await mongoose.connect(uri, {
+            serverSelectionTimeoutMS: 8000,
+            connectTimeoutMS: 10000
+        });
+        if (process.env.NODE_ENV !== 'production') {
+            await seedDefaultData();
+        }
+        cachedDb = db;
+        return db;
+    } catch (err) {
+        console.error('DATABASE_CONNECTION_ERROR:', err.message);
+        throw err;
+    }
 }
 
 // Middleware
@@ -28,12 +38,18 @@ app.use(cors({ origin: true, credentials: true }));
 
 // Database connection middleware
 app.use(async (req, res, next) => {
+    // Only connect for actual API calls, skip health check
     if (req.path === '/api/health') return next();
+
     try {
         await initDB();
         next();
     } catch (err) {
-        res.status(503).json({ success: false, message: 'Database connection failed', error: err.message });
+        res.status(503).json({
+            success: false,
+            message: 'Database connection failed. Please check your Atlas IP Whitelist.',
+            error: err.message
+        });
     }
 });
 
