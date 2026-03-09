@@ -8,55 +8,36 @@ const fs = require('fs');
 const csvParser = require('csv-parser');
 const { Readable } = require('stream');
 
-const app = express();
-
-// Database Connection Logic (Move before routes)
+// Database Connection Logic
 let cachedDb = null;
 async function initDB() {
     if (cachedDb && mongoose.connection.readyState === 1) return cachedDb;
     const uri = process.env.MONGODB_URI;
-    if (!uri) {
-        console.error('CRITICAL ERROR: MONGODB_URI Environment Variable is missing.');
-        throw new Error('MONGODB_URI is missing');
-    }
-
-    // Connect with a shorter timeout to avoid Vercel ghost hangs
-    const db = await mongoose.connect(uri, {
-        serverSelectionTimeoutMS: 5000,
-        socketTimeoutMS: 45000
-    });
-
-    // ONLY seed in development or if explicitly requested
-    if (process.env.NODE_ENV !== 'production') {
-        await seedDefaultData();
-    }
-
+    if (!uri) throw new Error('MONGODB_URI is missing');
+    const db = await mongoose.connect(uri, { serverSelectionTimeoutMS: 10000 });
+    if (process.env.NODE_ENV !== 'production') await seedDefaultData();
     cachedDb = db;
     return db;
 }
 
-// Middleware (Increased limits)
+// Middleware
+const app = express();
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use(cors({ origin: true, credentials: true }));
 
-// Database connection middleware (Runs for every request)
+// Database connection middleware
 app.use(async (req, res, next) => {
-    if (req.path === '/api/health') return next(); // Skip DB check for health probe
+    if (req.path === '/api/health') return next();
     try {
         await initDB();
         next();
     } catch (err) {
-        console.error('DB Middleware Error:', err.message);
-        res.status(503).json({ success: false, message: 'Database connection failed. Please check IP Whitelist.', error: err.message });
+        res.status(503).json({ success: false, message: 'Database connection failed', error: err.message });
     }
 });
 
-app.use(cors({
-    origin: true,
-    credentials: true
-}));
-
-// Multer Setup
+// Multer Setup (Memory Only for Vercel)
 const upload = multer({ storage: multer.memoryStorage() });
 const uploadMemory = multer({ storage: multer.memoryStorage() });
 
