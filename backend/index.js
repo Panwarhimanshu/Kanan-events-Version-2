@@ -606,9 +606,9 @@ app.get('/api/counsellings', async (req, res) => {
 
 app.post('/api/counsellings', async (req, res) => {
     try {
-        const { name, mobile, preferred_country, assigned_counselor, status, notes } = req.body;
+        const { name, mobile, preferred_country, assigned_counselor, assigned_email, status, notes } = req.body;
         if (!name || !mobile) return res.status(400).json({ success: false, message: 'Name and Mobile are required' });
-        const record = new Counselling({ name, mobile, preferred_country, assigned_counselor, status, notes });
+        const record = new Counselling({ name, mobile, preferred_country, assigned_counselor, assigned_email, status, notes });
         await record.save();
         res.status(201).json({ success: true, message: 'Counselling record created', id: record.id });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }

@@ -326,7 +326,7 @@ function AdminDashboard() {
         } catch (err) { console.error(err); }
     };
 
-    const resetCounsellingForm = () => setCounsellingForm({ id: null, name: '', mobile: '', preferred_country: '', assigned_counselor: '', status: 'Pending', notes: '' });
+    const resetCounsellingForm = () => setCounsellingForm({ id: null, name: '', mobile: '', preferred_country: '', assigned_counselor: '', assigned_email: '', status: 'Pending', notes: '' });
 
     const startEditCounselling = (c) => { setCounsellingForm(c); setEditingCounselling(true); };
 
@@ -352,23 +352,24 @@ function AdminDashboard() {
 
     const filteredCounsellings = counsellings.filter(c => {
         if (userRole !== 'super_admin') {
-            if (!c.assigned_counselor) return false;
+            // Priority 1: Direct email match (reliable)
+            if (c.assigned_email && c.assigned_email.toLowerCase() === username.toLowerCase()) return true;
 
+            // Priority 2: Fallback to counselor name match (for old records or manual entries)
+            if (!c.assigned_counselor) return false;
             const uname = username.toLowerCase();
             const counselorFull = c.assigned_counselor.toLowerCase();
             const counselorFirst = counselorFull.split(' ')[0];
 
-            // 1. Try strict email match via HOD database
+            // Try strict email match via HOD database
             const loggedInHod = hods.find(h => h.email?.toLowerCase() === uname);
             let matchesHod = false;
             if (loggedInHod && counselorFull.includes(loggedInHod.name.toLowerCase())) matchesHod = true;
 
-            // 2. Try implicit match: if your username contains their first name
+            // Try implicit match: if your username contains their first name
             let matchesImplicit = uname.includes(counselorFirst);
 
-            if (!matchesHod && !matchesImplicit) {
-                return false;
-            }
+            if (!matchesHod && !matchesImplicit) return false;
         }
         if (!counsellingSearch) return true;
         const q = counsellingSearch.toLowerCase();
@@ -1082,7 +1083,23 @@ function AdminDashboard() {
                                     </div>
                                     <div>
                                         <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#7B8599', marginBottom: '5px' }}>Assigned Counselor</label>
-                                        <input value={counsellingForm.assigned_counselor} onChange={e => setCounsellingForm(f => ({ ...f, assigned_counselor: e.target.value }))} placeholder="Counselor Name" style={inputStyle} />
+                                        <select
+                                            value={counsellingForm.assigned_email || ''}
+                                            onChange={e => {
+                                                const selectedHod = hods.find(h => h.email === e.target.value);
+                                                setCounsellingForm(f => ({
+                                                    ...f,
+                                                    assigned_email: e.target.value,
+                                                    assigned_counselor: selectedHod ? selectedHod.name : ''
+                                                }));
+                                            }}
+                                            style={inputStyle}
+                                        >
+                                            <option value="">-- Select Counselor --</option>
+                                            {hods.map(h => (
+                                                <option key={h.id} value={h.email}>{h.name} ({h.email})</option>
+                                            ))}
+                                        </select>
                                     </div>
                                     <div>
                                         <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#7B8599', marginBottom: '5px' }}>Status</label>
