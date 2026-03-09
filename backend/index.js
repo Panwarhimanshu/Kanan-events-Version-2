@@ -14,21 +14,36 @@ const { Readable } = require('stream');
 
 const app = express();
 
-// Middleware (Increased limits for large base64 strings)
+// Database Connection Logic (Move before routes)
+let cachedDb = null;
+async function initDB() {
+    if (cachedDb && mongoose.connection.readyState === 1) return cachedDb;
+    const uri = process.env.MONGODB_URI;
+    if (!uri) throw new Error('MONGODB_URI is missing');
+    const db = await mongoose.connect(uri, { serverSelectionTimeoutMS: 8000 });
+    await seedDefaultData();
+    cachedDb = db;
+    return db;
+}
+
+// Middleware (Increased limits)
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
+// Database connection middleware (Runs for every request)
+app.use(async (req, res, next) => {
+    if (req.path === '/api/health') return next(); // Skip DB check for health probe
+    try {
+        await initDB();
+        next();
+    } catch (err) {
+        console.error('DB Middleware Error:', err.message);
+        res.status(503).json({ success: false, message: 'Database connection failed. Please check IP Whitelist.', error: err.message });
+    }
+});
+
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
-        if (
-            origin.startsWith('http://localhost') ||
-            origin.endsWith('.vercel.app') ||
-            (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL)
-        ) {
-            return callback(null, true);
-        }
-        return callback(null, true); // Fallback for flexibility during migration
-    },
+    origin: true,
     credentials: true
 }));
 
@@ -171,7 +186,6 @@ async function initDB() {
         console.error('Error connecting to MongoDB:', error.message);
         throw error; // Throw so middleware can catch it
     }
-}
 }
 
 async function seedDefaultData() {
@@ -672,22 +686,9 @@ app.delete('/api/registrations/:id', async (req, res) => {
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
 });
 
+// Health probe (DB-free)
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', message: 'Kanan Events API is running with MongoDB' });
-});
-
-// Middleware to ensure DB connection
-app.use(async (req, res, next) => {
-    try {
-        await initDB();
-        next();
-    } catch (err) {
-        res.status(503).json({
-            success: false,
-            message: 'Database connection failed. Please ensure your IP is whitelisted in MongoDB Atlas (add 0.0.0.0/0).',
-            error: err.message
-        });
-    }
+    res.json({ status: 'ok', message: 'Kanan Events API is active' });
 });
 
 // Start Server
