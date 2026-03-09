@@ -2087,94 +2087,141 @@ body {
 
 /* ====== IMMIGRATION SECTION ====== */
 .immigration-section {
-    padding: 60px 0;
+    padding: 80px 0;
     background: #fff;
+    border-top: 1px solid var(--k-border);
+}
+
+.section-title-sm {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title-sm h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--k-orange);
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.section-title-sm h2 {
+    font-size: 36px;
+    font-family: 'Sora', sans-serif;
+    color: var(--k-ink);
+    font-weight: 800;
 }
 
 .immigration-section .container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 24px;
 }
 
 .immigration-card {
-    background: #f0f5ff;
-    border: 1px solid #d0dfff;
-    border-radius: 20px;
+    background: #f8faff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
     padding: 32px;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.immigration-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--k-shadow-lg);
+    border-color: #cbd5e1;
 }
 
 .immigration-card-inner {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 100%;
 }
 
 .immigration-content {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .immigration-content h2 {
-    font-size: 24px;
+    font-size: 22px;
     color: #003399;
     font-weight: 800;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     line-height: 1.3;
 }
 
 .immigration-content .sub-text {
-    font-size: 16px;
-    color: #003399;
-    opacity: 0.9;
-    margin-bottom: 24px;
-    line-height: 1.5;
+    font-size: 14.5px;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    flex-grow: 1;
+    /* Pushes button to bottom */
 }
 
 .btn-book {
     background: #00964f;
     color: #fff;
-    padding: 10px 24px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 14px;
     border: none;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
     align-self: flex-start;
+    width: 100%;
+    text-align: center;
     position: relative;
     z-index: 5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .btn-book:hover {
     background: #007a41;
+    transform: scale(1.02);
 }
 
 .immigration-bg-icon {
     position: absolute;
-    right: -10px;
-    bottom: -10px;
-    opacity: 0.05;
+    right: -15px;
+    bottom: -15px;
+    opacity: 0.08;
     pointer-events: none;
+    transition: all 0.5s ease;
 }
 
-@media (max-width: 968px) {
+.immigration-card:hover .immigration-bg-icon {
+    transform: scale(1.2) rotate(-5deg);
+    opacity: 0.12;
+}
+
+@media (max-width: 1200px) {
+    .immigration-section .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
     .immigration-section .container {
         grid-template-columns: 1fr;
     }
-}
 
-@media (max-width: 480px) {
-    .immigration-card {
-        padding: 24px;
+    .immigration-section {
+        padding: 50px 0;
     }
 
-    .immigration-content h2 {
-        font-size: 20px;
+    .section-title-sm h2 {
+        font-size: 28px;
     }
 }
