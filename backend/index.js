@@ -152,10 +152,15 @@ async function initDB() {
     try {
         const uri = process.env.MONGODB_URI;
         if (!uri) {
-            console.error('MONGODB_URI is not defined in .env');
-            return;
+            throw new Error('MONGODB_URI is not defined in Environment Variables');
         }
-        const db = await mongoose.connect(uri);
+
+        // Add timeout options to fail faster if the IP is not whitelisted
+        const db = await mongoose.connect(uri, {
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
+        });
+
         console.log('Successfully connected to MongoDB Atlas');
 
         // Seed default HODs, Interests and Users
@@ -163,8 +168,10 @@ async function initDB() {
         cachedDb = db;
         return db;
     } catch (error) {
-        console.error('Error connecting to MongoDB:', error);
+        console.error('Error connecting to MongoDB:', error.message);
+        throw error; // Throw so middleware can catch it
     }
+}
 }
 
 async function seedDefaultData() {
@@ -671,8 +678,16 @@ app.get('/api/health', (req, res) => {
 
 // Middleware to ensure DB connection
 app.use(async (req, res, next) => {
-    await initDB();
-    next();
+    try {
+        await initDB();
+        next();
+    } catch (err) {
+        res.status(503).json({
+            success: false,
+            message: 'Database connection failed. Please ensure your IP is whitelisted in MongoDB Atlas (add 0.0.0.0/0).',
+            error: err.message
+        });
+    }
 });
 
 // Start Server
