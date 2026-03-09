@@ -36,11 +36,14 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cors({ origin: true, credentials: true }));
 
-// Database connection middleware
-app.use(async (req, res, next) => {
-    // Only connect for actual API calls, skip health check
-    if (req.path === '/api/health') return next();
+// 1. Health Probe (Top priority, no DB, no logic)
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'ok', time: new Date().toISOString() });
+});
 
+// 2. Database connection middleware (On-demand Only)
+app.use(async (req, res, next) => {
+    if (req.path === '/api/health') return next();
     try {
         await initDB();
         next();
@@ -692,20 +695,8 @@ app.delete('/api/registrations/:id', async (req, res) => {
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
 });
 
-// Health probe (DB-free)
-app.get('/api/health', async (req, res) => {
-    try {
-        // If they add ?seed=true, we run seeds manually
-        if (req.query.seed === 'true') {
-            await initDB();
-            await seedDefaultData();
-            return res.json({ status: 'ok', message: 'Seeds executed successfully' });
-        }
-        res.json({ status: 'ok', message: 'Kanan Events API is active' });
-    } catch (err) {
-        res.status(500).json({ status: 'error', message: err.message });
-    }
-});
+// Remove bottom health probe
+// ... (start server follows)
 
 // Start Server
 if (process.env.NODE_ENV !== 'production') {
