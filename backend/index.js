@@ -23,7 +23,10 @@ let cachedDb = null;
 async function initDB() {
     if (cachedDb && mongoose.connection.readyState === 1) return cachedDb;
     const uri = process.env.MONGODB_URI;
-    if (!uri) throw new Error('MONGODB_URI is missing');
+    if (!uri) {
+        console.error('CRITICAL ERROR: MONGODB_URI Environment Variable is missing.');
+        throw new Error('MONGODB_URI is missing');
+    }
 
     // Connect with a shorter timeout to avoid Vercel ghost hangs
     const db = await mongoose.connect(uri, {
