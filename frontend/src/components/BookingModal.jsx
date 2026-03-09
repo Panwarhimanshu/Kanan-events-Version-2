@@ -34,7 +34,7 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
     const [selCounsellor, setSelCounsellor] = useState(null);
     const [confirmed, setConfirmed] = useState(false);
     const [booking, setBooking] = useState(null);
-    const [emailTab, setEmailTab] = useState('student');
+
     const [form, setForm] = useState({ name: '', phone: '', email: '', dest: '', edu: '', notes: '' });
 
     const [counsellors, setCounsellors] = useState([]);
@@ -73,7 +73,7 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
             .catch(err => console.error('Failed to load counsellors:', err));
     }, [isOpen, canadaOnly, germanyOnly]);
 
-    const reset = () => { setStep(1); setMode('inperson'); setSelDate(null); setDateLabel(''); setSelTime(null); setSelCounsellor(null); setConfirmed(false); setBooking(null); setEmailTab('student'); setForm({ name: '', phone: '', email: '', dest: '', edu: '', notes: '' }); };
+    const reset = () => { setStep(1); setMode('inperson'); setSelDate(null); setDateLabel(''); setSelTime(null); setSelCounsellor(null); setConfirmed(false); setBooking(null); setForm({ name: '', phone: '', email: '', dest: '', edu: '', notes: '' }); };
 
     if (!isOpen) return null;
 
@@ -167,12 +167,8 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
                         <div className="confirm-badge">✅ FREE · 30 min session · Confirmed</div>
                     </div>
 
-                    <div className="email-tabs">
-                        <button className={`email-tab${emailTab === 'student' ? ' active' : ''}`} onClick={() => setEmailTab('student')}>📩 Your Confirmation</button>
-                        <button className={`email-tab${emailTab === 'counsellor' ? ' active' : ''}`} onClick={() => setEmailTab('counsellor')}>📩 Counsellor Copy</button>
-                    </div>
                     <div className="email-preview">
-                        <div className={`email-preview-pane${emailTab === 'student' ? ' active' : ''}`}>
+                        <div className="email-preview-pane active">
                             <div className="ep-header">
                                 <div className="ep-header-row"><strong>To:</strong> {booking.email}</div>
                                 <div className="ep-header-row"><strong>Subject:</strong> ✅ Booking Confirmed — Ref: {booking.bookRef}</div>
@@ -186,20 +182,6 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
                                     <div>{mode === 'inperson' ? '🏢' : '💻'} <strong>Mode:</strong> {mLbl}</div>
                                 </div>
                                 <div className="ep-footer">📱 24×7 Helpline: +91 6356 568111 | www.kanan.co</div>
-                            </div>
-                        </div>
-                        <div className={`email-preview-pane${emailTab === 'counsellor' ? ' active' : ''}`}>
-                            <div className="ep-header">
-                                <div className="ep-header-row"><strong>To:</strong> {booking.counsellor?.email}</div>
-                                <div className="ep-header-row"><strong>Subject:</strong> 📅 New Booking — {booking.name} | {booking.dateLabel}</div>
-                            </div>
-                            <div className="ep-body">
-                                Hi <strong>{booking.counsellor?.name}</strong>, a new session has been booked with you.
-                                <div className="ep-details-box">
-                                    <div>👤 {booking.name} · 📱 {booking.phone}</div>
-                                    <div>📅 {booking.dateLabel} · 🕐 {booking.time}</div>
-                                    <div>🌍 Interested: {booking.dest || 'Not specified'}</div>
-                                </div>
                             </div>
                         </div>
                     </div>
