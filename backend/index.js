@@ -81,7 +81,7 @@ const eventRegistrationSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now }
 });
 eventRegistrationSchema.set('toJSON', { transform: commonTransform });
-const EventRegistration = mongoose.model('EventRegistration', eventRegistrationSchema);
+const EventRegistration = mongoose.models.EventRegistration || mongoose.model('EventRegistration', eventRegistrationSchema);
 
 const callbackRequestSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -91,14 +91,14 @@ const callbackRequestSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now }
 });
 callbackRequestSchema.set('toJSON', { transform: commonTransform });
-const CallbackRequest = mongoose.model('CallbackRequest', callbackRequestSchema);
+const CallbackRequest = mongoose.models.CallbackRequest || mongoose.model('CallbackRequest', callbackRequestSchema);
 
 const newsletterSubSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     created_at: { type: Date, default: Date.now }
 });
 newsletterSubSchema.set('toJSON', { transform: commonTransform });
-const NewsletterSub = mongoose.model('NewsletterSub', newsletterSubSchema);
+const NewsletterSub = mongoose.models.NewsletterSub || mongoose.model('NewsletterSub', newsletterSubSchema);
 
 const eventSchema = new mongoose.Schema({
     month: String,
@@ -121,7 +121,7 @@ const eventSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now }
 });
 eventSchema.set('toJSON', { transform: commonTransform });
-const Event = mongoose.model('Event', eventSchema);
+const Event = mongoose.models.Event || mongoose.model('Event', eventSchema);
 
 const callbackInterestSchema = new mongoose.Schema({
     label: { type: String, required: true },
@@ -129,7 +129,7 @@ const callbackInterestSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now }
 });
 callbackInterestSchema.set('toJSON', { transform: commonTransform });
-const CallbackInterest = mongoose.model('CallbackInterest', callbackInterestSchema);
+const CallbackInterest = mongoose.models.CallbackInterest || mongoose.model('CallbackInterest', callbackInterestSchema);
 
 const hodSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -144,7 +144,7 @@ const hodSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now }
 });
 hodSchema.set('toJSON', { transform: commonTransform });
-const HOD = mongoose.model('HOD', hodSchema);
+const HOD = mongoose.models.HOD || mongoose.model('HOD', hodSchema);
 
 const counsellingSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -156,7 +156,7 @@ const counsellingSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now }
 });
 counsellingSchema.set('toJSON', { transform: commonTransform });
-const Counselling = mongoose.model('Counselling', counsellingSchema);
+const Counselling = mongoose.models.Counselling || mongoose.model('Counselling', counsellingSchema);
 
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
@@ -165,7 +165,7 @@ const userSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now }
 });
 userSchema.set('toJSON', { transform: commonTransform });
-const User = mongoose.model('User', userSchema);
+const User = mongoose.models.User || mongoose.model('User', userSchema);
 
 // Database Connection
 let cachedDb = null;
