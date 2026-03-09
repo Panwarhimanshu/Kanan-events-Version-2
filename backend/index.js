@@ -154,6 +154,7 @@ const counsellingSchema = new mongoose.Schema({
     mobile: { type: String, required: true },
     preferred_country: String,
     assigned_counselor: String,
+    assigned_email: String,
     status: { type: String, default: 'Pending' },
     notes: String,
     created_at: { type: Date, default: Date.now }

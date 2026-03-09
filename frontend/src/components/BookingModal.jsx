@@ -23,7 +23,7 @@ function generateICS(dateStr, timeStr, name, counsellor, mode) {
         `DESCRIPTION:${desc}`, `LOCATION:${location}`, 'STATUS:CONFIRMED', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
 }
 
-export function BookingModal({ isOpen, onClose }) {
+export function BookingModal({ isOpen, onClose, canadaOnly = false }) {
     const [step, setStep] = useState(1);
     const [mode, setMode] = useState('inperson');
     const [calMonth, setCalMonth] = useState(2);
@@ -54,10 +54,18 @@ export function BookingModal({ isOpen, onClose }) {
                         email: h.email || ''
                     }));
                     setCounsellors(mapped);
+
+                    // Auto-select Anil Goel if this is a Canada-specific booking
+                    if (canadaOnly) {
+                        const anil = mapped.find(c => c.email.toLowerCase() === 'anilgoyal@kananinternational.com' || c.name.toLowerCase().includes('anil goel'));
+                        if (anil) {
+                            setSelCounsellor(anil);
+                        }
+                    }
                 }
             })
             .catch(err => console.error('Failed to load counsellors:', err));
-    }, []);
+    }, [isOpen, canadaOnly]);
 
     const reset = () => { setStep(1); setMode('inperson'); setSelDate(null); setDateLabel(''); setSelTime(null); setSelCounsellor(null); setConfirmed(false); setBooking(null); setEmailTab('student'); setForm({ name: '', phone: '', email: '', dest: '', edu: '', notes: '' }); };
 
@@ -106,10 +114,11 @@ export function BookingModal({ isOpen, onClose }) {
                 body: JSON.stringify({
                     name: form.name,
                     mobile: form.phone,
-                    preferred_country: form.dest || '',
-                    assigned_counselor: selCounsellor?.name || '',
+                    preferred_country: canadaOnly ? 'Canada' : (form.dest || ''),
+                    assigned_counselor: canadaOnly ? (selCounsellor?.name || 'Anil Goel') : (selCounsellor?.name || ''),
+                    assigned_email: canadaOnly ? 'anilgoyal@kananinternational.com' : (selCounsellor?.email || ''),
                     status: 'Pending',
-                    notes: `📅 ${dateLabel} · 🕐 ${selTime} · ${mode === 'inperson' ? 'In-Person' : 'Online'} · Ref: ${bookRef}${form.notes ? ' · ' + form.notes : ''}`
+                    notes: `${canadaOnly ? '[CANADA IMMIGRATION] · ' : ''}📅 ${dateLabel} · 🕐 ${selTime} · ${mode === 'inperson' ? 'In-Person' : 'Online'} · Ref: ${bookRef}${form.notes ? ' · ' + form.notes : ''}`
                 })
             });
         } catch (err) {
@@ -255,7 +264,9 @@ export function BookingModal({ isOpen, onClose }) {
                             {selTime && <div className="book-selected-info show">🕐 {selTime} · 30 min session</div>}
                             <div className="book-nav">
                                 <button className="btn btn-outline" onClick={() => setStep(1)}>← Back</button>
-                                <button className="btn btn-primary btn-lg" disabled={!selTime} onClick={() => setStep(3)}>Next — Counsellor →</button>
+                                <button className="btn btn-primary btn-lg" disabled={!selTime} onClick={() => setStep(canadaOnly ? 4 : 3)}>
+                                    {canadaOnly ? 'Next — Your Details →' : 'Next — Counsellor →'}
+                                </button>
                             </div>
                         </div>
                     )}
@@ -298,7 +309,7 @@ export function BookingModal({ isOpen, onClose }) {
                                 <div className="form-group"><label>Email *</label><input type="email" required value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="your.email@example.com" /></div>
                                 <div className="form-row">
                                     <div className="form-group"><label>Interested Destination</label>
-                                        <select value={form.dest} onChange={e => setForm(f => ({ ...f, dest: e.target.value }))}>
+                                        <select value={canadaOnly ? 'Canada' : form.dest} onChange={e => !canadaOnly && setForm(f => ({ ...f, dest: e.target.value }))} disabled={canadaOnly}>
                                             <option value="">Select</option>{['Canada', 'UK', 'USA', 'Australia', 'Germany', 'Dubai', 'Europe', 'Not sure yet'].map(o => <option key={o}>{o}</option>)}
                                         </select>
                                     </div>

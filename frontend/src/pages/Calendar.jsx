@@ -35,6 +35,7 @@ function Calendar() {
     const [successData, setSuccessData] = useState(null);
     const [vcardLeader, setVcardLeader] = useState(null);
     const [bookingOpen, setBookingOpen] = useState(false);
+    const [isCanadaBooking, setIsCanadaBooking] = useState(false);
 
     useEffect(() => {
         axios.get(`${API_URL}/api/events?activeOnly=true`)
@@ -130,7 +131,7 @@ function Calendar() {
             </section>
 
             {/* CANADA IMMIGRATION SECTION */}
-            <CanadaImmigrationSection onOpenBooking={() => setBookingOpen(true)} />
+            <CanadaImmigrationSection onOpenBooking={() => { setIsCanadaBooking(true); setBookingOpen(true); }} />
 
             {/* FOOTER */}
             <Footer />
@@ -193,7 +194,8 @@ function Calendar() {
             />
             <BookingModal
                 isOpen={bookingOpen}
-                onClose={() => setBookingOpen(false)}
+                onClose={() => { setBookingOpen(false); setIsCanadaBooking(false); }}
+                canadaOnly={isCanadaBooking}
             />
         </>
     );
