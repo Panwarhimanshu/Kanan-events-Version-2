@@ -24,8 +24,18 @@ async function initDB() {
     if (cachedDb && mongoose.connection.readyState === 1) return cachedDb;
     const uri = process.env.MONGODB_URI;
     if (!uri) throw new Error('MONGODB_URI is missing');
-    const db = await mongoose.connect(uri, { serverSelectionTimeoutMS: 8000 });
-    await seedDefaultData();
+
+    // Connect with a shorter timeout to avoid Vercel ghost hangs
+    const db = await mongoose.connect(uri, {
+        serverSelectionTimeoutMS: 5000,
+        socketTimeoutMS: 45000
+    });
+
+    // ONLY seed in development or if explicitly requested
+    if (process.env.NODE_ENV !== 'production') {
+        await seedDefaultData();
+    }
+
     cachedDb = db;
     return db;
 }
@@ -691,8 +701,18 @@ app.delete('/api/registrations/:id', async (req, res) => {
 });
 
 // Health probe (DB-free)
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', message: 'Kanan Events API is active' });
+app.get('/api/health', async (req, res) => {
+    try {
+        // If they add ?seed=true, we run seeds manually
+        if (req.query.seed === 'true') {
+            await initDB();
+            await seedDefaultData();
+            return res.json({ status: 'ok', message: 'Seeds executed successfully' });
+        }
+        res.json({ status: 'ok', message: 'Kanan Events API is active' });
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: err.message });
+    }
 });
 
 // Start Server
