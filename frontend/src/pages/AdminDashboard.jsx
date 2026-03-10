@@ -98,8 +98,6 @@ function AdminDashboard() {
         { id: 'education-expo', label: 'Abroad Education Expo' },
         { id: 'mock-test', label: 'Mega Mock Test Drive' },
         { id: 'ptm', label: 'Parents–Teacher Meets' },
-        { id: 'immigration-canada', label: 'How to Get an Immigration Visa in Canada' },
-        { id: 'visa-refusal', label: 'Expert Opinion on Visa Refusal Cases' },
         { id: 'ceremony', label: 'Certification Ceremony' },
         { id: 'seminar', label: 'Seminar' },
         { id: 'other', label: 'Other (Custom)' }

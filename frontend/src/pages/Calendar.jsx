@@ -18,9 +18,7 @@ const TYPE_FILTERS = [
     { key: 'workshop', label: 'Workshops' },
     { key: 'ptm', label: 'Parents–Teacher Meets' },
     { key: 'education-expo', label: 'Abroad Education Expo' },
-    { key: 'mock-test', label: 'Mega Mock Test Drive' },
-    { key: 'immigration-canada', label: 'Immigration Visa in Canada' },
-    { key: 'visa-refusal', label: 'Visa Refusal Cases' }
+    { key: 'mock-test', label: 'Mega Mock Test Drive' }
 ];
 
 function Calendar() {
