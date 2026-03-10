@@ -7,12 +7,14 @@ import './AdminDashboard.css';
 
 function AdminDashboard() {
     const [events, setEvents] = useState([]);
-    const [isLogged, setIsLogged] = useState(() => sessionStorage.getItem('adminLoggedIn') === 'true');
-    const [userRole, setUserRole] = useState(() => sessionStorage.getItem('userRole') || 'admin');
-    const [username, setUsername] = useState(() => sessionStorage.getItem('username') || '');
+    const [isLogged, setIsLogged] = useState(() => (sessionStorage.getItem('adminLoggedIn') === 'true' || localStorage.getItem('adminLoggedIn') === 'true'));
+    const [userRole, setUserRole] = useState(() => sessionStorage.getItem('userRole') || localStorage.getItem('userRole') || 'admin');
+    const [username, setUsername] = useState(() => sessionStorage.getItem('username') || localStorage.getItem('username') || '');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
     const [activeTab, setActiveTab] = useState('events');
     const [showProfileMenu, setShowProfileMenu] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const downloadSampleCSV = () => {
         const headers = ["Main Event", "Activities", "Team Leader", "Contact Number", "2nd Member", "Department", "Branch", "Month", "Time", "Date"];
@@ -383,12 +385,13 @@ function AdminDashboard() {
                 password
             });
             if (res.data.success) {
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                sessionStorage.setItem('userRole', res.data.role);
-                sessionStorage.setItem('username', res.data.username);
+                const storage = rememberMe ? localStorage : sessionStorage;
+                storage.setItem('adminLoggedIn', 'true');
+                storage.setItem('userRole', res.data.role);
+                storage.setItem('username', res.data.username);
                 setIsLogged(true);
                 setUserRole(res.data.role);
-                setUsername(res.data.username); // Ensure synced with potentially trimmed value
+                setUsername(res.data.username);
             }
         } catch (err) {
             console.error('Login error:', err);
@@ -400,6 +403,9 @@ function AdminDashboard() {
         sessionStorage.removeItem('adminLoggedIn');
         sessionStorage.removeItem('userRole');
         sessionStorage.removeItem('username');
+        localStorage.removeItem('adminLoggedIn');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('username');
         setIsLogged(false);
     };
 
@@ -517,7 +523,38 @@ function AdminDashboard() {
                     <p style={{ color: '#7B8599', fontSize: '14px', marginBottom: '28px' }}>Sign in to your account</p>
                     <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                         <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} style={{ ...inputStyle, textAlign: 'center' }} required />
-                        <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ ...inputStyle, textAlign: 'center' }} required />
+                        <div style={{ position: 'relative' }}>
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                placeholder="Password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                style={{ ...inputStyle, textAlign: 'center' }}
+                                required
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', color: '#7B8599' }}
+                                title={showPassword ? "Hide Password" : "Show Password"}
+                            >
+                                {showPassword ? (
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                                ) : (
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                )}
+                            </button>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'flex-start', margin: '4px 0 8px' }}>
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                                checked={rememberMe}
+                                onChange={(e) => setRememberMe(e.target.checked)}
+                                style={{ cursor: 'pointer', width: '16px', height: '16px' }}
+                            />
+                            <label htmlFor="rememberMe" style={{ fontSize: '14px', color: '#7B8599', cursor: 'pointer', userSelect: 'none' }}>Remember me</label>
+                        </div>
                         <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '13px' }}>Login</button>
                     </form>
                     <Link to="/" style={{ display: 'block', marginTop: '20px', color: '#7B8599', fontSize: '13px' }}>← Back to Calendar</Link>
@@ -1229,7 +1266,26 @@ function AdminDashboard() {
                                     </div>
                                     <div>
                                         <label style={{ fontSize: '12px', color: '#7B8599', fontWeight: '700' }}>{editingUser ? 'NEW PASSWORD (LEAVE BLANK TO KEEP)' : 'PASSWORD'}</label>
-                                        <input type="password" value={userForm.password} onChange={e => setUserForm({ ...userForm, password: e.target.value })} style={inputStyle} required={!editingUser} />
+                                        <div style={{ position: 'relative' }}>
+                                            <input
+                                                type={showPassword ? "text" : "password"}
+                                                value={userForm.password}
+                                                onChange={e => setUserForm({ ...userForm, password: e.target.value })}
+                                                style={inputStyle}
+                                                required={!editingUser}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', color: '#7B8599' }}
+                                            >
+                                                {showPassword ? (
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                                                ) : (
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                                )}
+                                            </button>
+                                        </div>
                                     </div>
                                     <div>
                                         <label style={{ fontSize: '12px', color: '#7B8599', fontWeight: '700' }}>ACCOUNT ROLE</label>
