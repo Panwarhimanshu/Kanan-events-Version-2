@@ -99,6 +99,7 @@ function AdminDashboard() {
         { id: 'visa-fair', label: 'Kanan Student Visa Fair' },
         { id: 'education-expo', label: 'Abroad Education Expo' },
         { id: 'mock-test', label: 'Kanan Mega Mock Test Drive' },
+        { id: 'workshop', label: 'Workshops' },
         { id: 'ptm', label: 'Parents–Teacher Meets' },
         { id: 'ceremony', label: 'Certification Ceremony' },
         { id: 'seminar', label: 'Seminar' },
@@ -759,6 +760,7 @@ function AdminDashboard() {
                                         )}
                                     </div>
                                     <textarea name="activities" placeholder="Activities (separated by • or newlines)" value={formData.activities} onChange={handleChange} style={{ ...inputStyle, height: '72px', resize: 'vertical' }} />
+                                    <input name="searchKeys" placeholder="Search Keys (e.g. visa, coaching, admissions)" value={formData.searchKeys} onChange={handleChange} style={inputStyle} title="Additional keywords to help users find this event via search" />
                                     <div style={{ border: '1px solid #E2E8F0', padding: '10px', borderRadius: '8px' }}>
                                         <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: '#7B8599', marginBottom: '6px' }}>Mapped HOD / Team Leader (Optional)</label>
                                         <select name="teamLead" value={formData.teamLead || ''} onChange={handleChange} style={inputStyle}>

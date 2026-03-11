@@ -18,7 +18,9 @@ const TYPE_FILTERS = [
     { key: 'workshop', label: 'Workshops' },
     { key: 'ptm', label: 'Parents–Teacher Meets' },
     { key: 'education-expo', label: 'Abroad Education Expo' },
-    { key: 'mock-test', label: 'Kanan Mega Mock Test Drive' }
+    { key: 'mock-test', label: 'Kanan Mega Mock Test Drive' },
+    { key: 'ceremony', label: 'Certification Ceremony' },
+    { key: 'other', label: 'Other' }
 ];
 
 function Calendar() {
@@ -45,10 +47,25 @@ function Calendar() {
 
     const filteredEvents = useMemo(() => {
         return eventsData.filter(e => {
-            if (activeFilter !== 'all' && e.type !== activeFilter) return false;
+            // Category Filter
+            if (activeFilter !== 'all') {
+                const standardKeys = TYPE_FILTERS.map(f => f.key).filter(k => k !== 'all' && k !== 'other');
+                const eventType = (e.type || '').toLowerCase();
+                
+                if (activeFilter === 'other') {
+                    // Show if it doesn't match any known standard key
+                    if (standardKeys.includes(eventType)) return false;
+                } else {
+                    // Standard filter (case-insensitive)
+                    if (eventType !== activeFilter.toLowerCase()) return false;
+                }
+            }
+
+            // Search Filter
             if (searchTerm) {
                 const q = searchTerm.toLowerCase();
-                const hay = `${e.title || ''} ${e.activity || ''} ${e.teamLead || e.leadName || ''} ${e.country || ''} ${e.branch || e.venue || ''} ${e.dept || ''} ${e.day || ''} ${e.mainEvent || ''}`.toLowerCase();
+                const tagsStr = (e.tags || []).map(t => typeof t === 'object' ? t.label : t).join(' ');
+                const hay = `${e.title || ''} ${e.type || ''} ${e.subtitle || ''} ${e.activity || ''} ${e.searchKeys || ''} ${e.teamLead || e.leadName || ''} ${e.country || ''} ${e.branch || e.venue || ''} ${e.dept || ''} ${e.day || ''} ${e.mainEvent || ''} ${tagsStr}`.toLowerCase();
                 if (!hay.includes(q)) return false;
             }
             return true;
