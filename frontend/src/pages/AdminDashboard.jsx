@@ -98,7 +98,7 @@ function AdminDashboard() {
     const EVENT_CATEGORIES = [
         { id: 'visa-fair', label: 'Kanan Student Visa Fair' },
         { id: 'education-expo', label: 'Abroad Education Expo' },
-        { id: 'mock-test', label: 'Mega Mock Test Drive' },
+        { id: 'mock-test', label: 'Kanan Mega Mock Test Drive' },
         { id: 'ptm', label: 'Parents–Teacher Meets' },
         { id: 'ceremony', label: 'Certification Ceremony' },
         { id: 'seminar', label: 'Seminar' },

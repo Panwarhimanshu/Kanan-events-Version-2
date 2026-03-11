@@ -28,7 +28,7 @@ function Hero({ onOpenBooking, onOpenRegister, onOpenInvite }) {
                 <div className="hero-inner">
                     <div>
                         <h1>Your <em>Study Abroad</em> Journey Starts Here</h1>
-                        <p className="hero-sub">Explore our upcoming events for {feat ? `${feat.dateMonthStr} 2026` : '2026'}. Attend the Kanan Student Visa Fair, Abroad Education Expo, Mega Mock Test Drive, and Parents–Teacher Meets — in person or online.</p>
+                        <p className="hero-sub">Explore our upcoming events for {feat ? `${feat.dateMonthStr} 2026` : '2026'}. Attend the Kanan Student Visa Fair, Abroad Education Expo, Kanan Mega Mock Test Drive, and Parents–Teacher Meets — in person or online.</p>
                         <div className="hero-btns">
                             <a href="#events" className="btn btn-orange btn-lg">Browse All Events</a>
                             <button className="btn btn-ghost btn-lg" onClick={onOpenBooking}>Book Free Counselling</button>

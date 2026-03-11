@@ -34,7 +34,7 @@ function Footer() {
                             <ul>
                                 <li><a href="#">Kanan Student Visa Fair</a></li>
                                 <li><a href="#">Abroad Education Expo</a></li>
-                                <li><a href="#">Mega Mock Test Drive</a></li>
+                                <li><a href="#">Kanan Mega Mock Test Drive</a></li>
                                 <li><a href="#">Parents–Teacher Meets</a></li>
                             </ul>
                         </div>
