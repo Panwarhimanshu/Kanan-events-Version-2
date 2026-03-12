@@ -38,6 +38,9 @@ function Calendar() {
     const [isCanadaBooking, setIsCanadaBooking] = useState(false);
     const [isRefusalBooking, setIsRefusalBooking] = useState(false);
     const [isGermanyBooking, setIsGermanyBooking] = useState(false);
+    const [isVisitorBooking, setIsVisitorBooking] = useState(false);
+    const [isCoachingBooking, setIsCoachingBooking] = useState(false);
+    const [isTestPrepBooking, setIsTestPrepBooking] = useState(false);
 
     useEffect(() => {
         axios.get(`${API_URL}/api/events?activeOnly=true`)
@@ -152,6 +155,9 @@ function Calendar() {
                 onOpenCanadaBooking={() => { setIsCanadaBooking(true); setBookingOpen(true); }}
                 onOpenRefusalBooking={() => { setIsRefusalBooking(true); setBookingOpen(true); }}
                 onOpenGermanyBooking={() => { setIsGermanyBooking(true); setBookingOpen(true); }}
+                onOpenVisitorBooking={() => { setIsVisitorBooking(true); setBookingOpen(true); }}
+                onOpenCoachingBooking={() => { setIsCoachingBooking(true); setBookingOpen(true); }}
+                onOpenTestPrepBooking={() => { setIsTestPrepBooking(true); setBookingOpen(true); }}
             />
 
             {/* FOOTER */}
@@ -215,10 +221,21 @@ function Calendar() {
             />
             <BookingModal
                 isOpen={bookingOpen}
-                onClose={() => { setBookingOpen(false); setIsCanadaBooking(false); setIsRefusalBooking(false); setIsGermanyBooking(false); }}
-                canadaOnly={isCanadaBooking || isRefusalBooking}
+                onClose={() => { 
+                    setBookingOpen(false); 
+                    setIsCanadaBooking(false); 
+                    setIsRefusalBooking(false); 
+                    setIsGermanyBooking(false); 
+                    setIsVisitorBooking(false); 
+                    setIsCoachingBooking(false);
+                    setIsTestPrepBooking(false);
+                }}
+                canadaOnly={isCanadaBooking || isRefusalBooking || isVisitorBooking}
                 refusalOnly={isRefusalBooking}
                 germanyOnly={isGermanyBooking}
+                visitorOnly={isVisitorBooking}
+                coachingOnly={isCoachingBooking}
+                testPrepOnly={isTestPrepBooking}
             />
         </>
     );

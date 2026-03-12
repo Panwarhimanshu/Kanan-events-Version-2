@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, onOpenGermanyBooking }) {
+function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, onOpenGermanyBooking, onOpenVisitorBooking, onOpenCoachingBooking, onOpenTestPrepBooking }) {
     return (
         <section className="immigration-section" id="expert-services">
             <div className="container">
@@ -32,7 +32,28 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         </div>
                     </div>
 
-                    {/* BOX 2: Visa Refusal Cases */}
+                    {/* BOX 2: Visitor Visa */}
+                    <div className="immigration-card" style={{ background: '#FDF2F8', borderColor: '#FBCFE8' }}>
+                        <div className="immigration-card-inner">
+                            <div className="immigration-content">
+                                <h2 style={{ color: '#9D174D' }}>Visitor Visa</h2>
+                                <p className="sub-text" style={{ color: '#475569' }}>
+                                    We can assist you in applying for a visitor visa. Having offices at both ends of the process, we offer high-quality service in the region. This option allows you to invite your friends and family to visit you in Canada.
+                                </p>
+                                <button className="btn-book" style={{ background: '#DB2777' }} onClick={onOpenVisitorBooking}>
+                                    Book Consultation
+                                </button>
+                            </div>
+                            <div className="immigration-bg-icon">
+                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#9D174D" strokeWidth="1">
+                                    <rect x="3" y="7" width="18" height="13" rx="2"></rect>
+                                    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* BOX 3: Visa Refusal Cases */}
                     <div className="immigration-card" style={{ background: '#FFF8F0', borderColor: '#FFE9D0' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
@@ -54,7 +75,7 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         </div>
                     </div>
 
-                    {/* BOX 3: Germany Admission */}
+                    {/* BOX 4: Germany Admission */}
                     <div className="immigration-card" style={{ background: '#F8F5FF', borderColor: '#E8E0FF' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
@@ -76,7 +97,69 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         </div>
                     </div>
 
-                    {/* BOX 4: Travel Ticketing */}
+                    {/* BOX 5: Language Courses */}
+                    <div className="immigration-card" style={{ background: '#EFF6FF', borderColor: '#BFDBFE' }}>
+                        <div className="immigration-card-inner">
+                            <div className="immigration-content">
+                                <h2 style={{ color: '#1E40AF' }}>Language Courses</h2>
+                                <p className="sub-text" style={{ color: '#475569' }}>
+                                    Master a new language with our expert coaching for: <strong>English</strong> • <strong>French</strong> • <strong>German</strong>. Tailored programs for all levels.
+                                </p>
+                                <button className="btn-book" style={{ background: '#2563EB' }} onClick={onOpenCoachingBooking}>
+                                    Join Course
+                                </button>
+                            </div>
+                            <div className="immigration-bg-icon">
+                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#1E40AF" strokeWidth="1">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* BOX 6: English Proficiency Tests */}
+                    <div className="immigration-card" style={{ background: '#ECFDF5', borderColor: '#D1FAE5' }}>
+                        <div className="immigration-card-inner">
+                            <div className="immigration-content">
+                                <h2 style={{ color: '#065F46' }}>English Proficiency Tests</h2>
+                                <p className="sub-text" style={{ color: '#475569' }}>
+                                    Expert coaching to ace your: <strong>IELTS</strong> • <strong>PTE</strong> • <strong>Duolingo</strong> • <strong>TOEFL</strong>. High-score guaranteed strategies.
+                                </p>
+                                <button className="btn-book" style={{ background: '#059669' }} onClick={onOpenTestPrepBooking}>
+                                    Start Prep
+                                </button>
+                            </div>
+                            <div className="immigration-bg-icon">
+                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#065F46" strokeWidth="1">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* BOX 7: Academic Entrance Tests */}
+                    <div className="immigration-card" style={{ background: '#FFF7ED', borderColor: '#FFEDD5' }}>
+                        <div className="immigration-card-inner">
+                            <div className="immigration-content">
+                                <h2 style={{ color: '#9A3412' }}>Academic Entrance Tests</h2>
+                                <p className="sub-text" style={{ color: '#475569' }}>
+                                    Excel in global entrance exams: <strong>SAT</strong> • <strong>GRE</strong> • <strong>GMAT</strong>. Proven methods for top university admissions.
+                                </p>
+                                <button className="btn-book" style={{ background: '#EA580C' }} onClick={onOpenTestPrepBooking}>
+                                    Learn More
+                                </button>
+                            </div>
+                            <div className="immigration-bg-icon">
+                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#9A3412" strokeWidth="1">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* BOX 8: Travel Ticketing */}
                     <div className="immigration-card" style={{ background: '#F0FFF8', borderColor: '#D0F7E8' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
