@@ -100,7 +100,7 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                             <div className="immigration-content">
                                 <h2 style={{ color: '#92400E' }}>Study in Dubai</h2>
                                 <p className="sub-text" style={{ color: '#475569' }}>
-                                    Modern education hub. <strong>No IELTS</strong>, <strong>No Funds</strong>, and <strong>Pathway to UK/Australia</strong>. Earn while you learn with flexible work rights.
+                                    Modern education hub. <strong>No IELTS</strong>, <strong>No Funds</strong>, <strong>Low Budget</strong>, and <strong>Pathway to Canada, UK, USA And Australia</strong>. Earn while you learn with flexible work rights.
                                 </p>
                                 <button className="btn-book" style={{ background: '#D97706' }} onClick={() => onOpenStudyBooking('Dubai')}>
                                     Apply Now
@@ -322,6 +322,26 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <line x1="12" y1="8" x2="12" y2="12"></line>
                                     <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* BOX 16: Post Visa Services */}
+                    <div className="immigration-card" style={{ background: '#F0FDFA', borderColor: '#CCFBF1' }}>
+                        <div className="immigration-card-inner">
+                            <div className="immigration-content">
+                                <h2 style={{ color: '#0F766E' }}>Post Visa Services</h2>
+                                <p className="sub-text" style={{ color: '#475569' }}>
+                                    Comprehensive support after your visa approval: <strong>Education Loan</strong> • <strong>Ticketing</strong> • <strong>Forex</strong> • <strong>VSA</strong>
+                                </p>
+                                <button className="btn-book" style={{ background: '#0D9488' }} onClick={onOpenCanadaBooking}>
+                                    Avail Services
+                                </button>
+                            </div>
+                            <div className="immigration-bg-icon">
+                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#0F766E" strokeWidth="1">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
                         </div>
