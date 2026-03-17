@@ -142,7 +142,7 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                             <div className="immigration-content">
                                 <h2 style={{ color: '#991B1B' }}>Study MBBS Abroad</h2>
                                 <p className="sub-text" style={{ color: '#475569' }}>
-                                    Fulfill your doctor dream. Affordable <strong>NMC-approved</strong> medical universities in <strong>Europe</strong>, <strong>Central Asia</strong>, and <strong>South Asia</strong>.
+                                    Study in Mbbs at top university globaly
                                 </p>
                                 <button className="btn-book" style={{ background: '#DC2626' }} onClick={() => onOpenStudyBooking('MBBS')}>
                                     Medical Admission
