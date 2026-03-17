@@ -115,22 +115,23 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         </div>
                     </div>
 
-                    {/* BOX 6: Study in France */}
+                    {/* BOX 6: Study in Europe */}
                     <div className="immigration-card" style={{ background: '#ECFEFF', borderColor: '#CFFAFE' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
-                                <h2 style={{ color: '#155E75' }}>Study in France</h2>
+                                <h2 style={{ color: '#155E75' }}>Study in Europe</h2>
                                 <p className="sub-text" style={{ color: '#475569' }}>
-                                    Innovation and culture. High-quality <strong>English-taught programs</strong>, low tuition fees, and special focus on <strong>French Language Courses</strong>.
+                                    Experience world-class European education. Study at top-ranked universities with affordable tuition. Hassle-free Schengen visa process with strong post-study work opportunities. Experience rich culture and lifestyle.
                                 </p>
-                                <button className="btn-book" style={{ background: '#0891B2' }} onClick={() => onOpenStudyBooking('France')}>
+                                <button className="btn-book" style={{ background: '#0891B2' }} onClick={() => onOpenStudyBooking('Europe')}>
                                     Start Journey
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
                                 <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#155E75" strokeWidth="1">
-                                    <path d="M22 3H2v18h20V3z"></path>
-                                    <path d="M9 3v18M15 3v18"></path>
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M2 12h20"></path>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                                 </svg>
                             </div>
                         </div>
