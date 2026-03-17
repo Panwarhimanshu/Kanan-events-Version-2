@@ -38,7 +38,7 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                             <div className="immigration-content">
                                 <h2 style={{ color: '#1E40AF' }}>Study in USA</h2>
                                 <p className="sub-text" style={{ color: '#475569' }}>
-                                    Experience the American dream. Admissions in <strong>Ivy League</strong> and top-ranked <strong>State Universities</strong>. Support for F1/J1 visas.
+                                    Secure admission to top-ranked U.S. universities for <strong>Bachelor’s</strong>, <strong>Master’s</strong>, and <strong>funded PhD programs</strong>. Receive expert guidance on scholarships, application guidelines, and personalized visa assistance.
                                 </p>
                                 <button className="btn-book" style={{ background: '#2563EB' }} onClick={() => onOpenStudyBooking('USA')}>
                                     Start Application
