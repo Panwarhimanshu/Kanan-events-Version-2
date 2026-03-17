@@ -23,7 +23,7 @@ function generateICS(dateStr, timeStr, name, counsellor, mode) {
         `DESCRIPTION:${desc}`, `LOCATION:${location}`, 'STATUS:CONFIRMED', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
 }
 
-export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly = false, germanyOnly = false, visitorOnly = false, coachingOnly = false, testPrepOnly = false }) {
+export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly = false, germanyOnly = false, visitorOnly = false, coachingOnly = false, testPrepOnly = false, studyCountry = "" }) {
     const [step, setStep] = useState(1);
     const [mode, setMode] = useState('inperson');
     const [calMonth, setCalMonth] = useState(2);
@@ -55,14 +55,14 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
                     }));
                     setCounsellors(mapped);
 
-                    // Auto-select Anil Goel if this is a Canada-specific booking or Visitor Visa
-                    if (canadaOnly || visitorOnly) {
+                    // Auto-select Anil Goel if this is a Canada-specific booking or Visitor Visa or Study in Canada
+                    if (canadaOnly || visitorOnly || studyCountry === 'Canada') {
                         const anil = mapped.find(c => c.email.toLowerCase() === 'anilgoyal@kananinternational.com' || c.name.toLowerCase().includes('anil goel'));
                         if (anil) setSelCounsellor(anil);
                     }
 
-                    // Auto-select Bheru Chouhan for Germany
-                    if (germanyOnly) {
+                    // Auto-select Bheru Chouhan for Germany or Study in Germany
+                    if (germanyOnly || studyCountry === 'Germany') {
                         const bheru = mapped.find(c => c.email.toLowerCase() === 'bheru.chouhan@kanan.co' || c.name.toLowerCase().includes('bheru'));
                         if (bheru) setSelCounsellor(bheru);
                     }
@@ -75,7 +75,7 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
                 }
             })
             .catch(err => console.error('Failed to load counsellors:', err));
-    }, [isOpen, canadaOnly, germanyOnly, visitorOnly, coachingOnly, testPrepOnly]);
+    }, [isOpen, canadaOnly, germanyOnly, visitorOnly, coachingOnly, testPrepOnly, studyCountry]);
 
     const reset = () => { setStep(1); setMode('inperson'); setSelDate(null); setDateLabel(''); setSelTime(null); setSelCounsellor(null); setConfirmed(false); setBooking(null); setForm({ name: '', phone: '', email: '', dest: '', edu: '', notes: '' }); };
 
@@ -124,11 +124,11 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
                 body: JSON.stringify({
                     name: form.name,
                     mobile: form.phone,
-                    preferred_country: germanyOnly ? 'Germany' : (canadaOnly || refusalOnly || visitorOnly) ? 'Canada' : (form.dest || ''),
+                    preferred_country: germanyOnly ? 'Germany' : (canadaOnly || refusalOnly || visitorOnly) ? 'Canada' : (studyCountry || form.dest || ''),
                     assigned_counselor: germanyOnly ? (selCounsellor?.name || 'Bheru Singh') : (canadaOnly || refusalOnly || visitorOnly) ? (selCounsellor?.name || 'Anil Goel') : (selCounsellor?.name || ''),
                     assigned_email: germanyOnly ? 'bheru.chouhan@kanan.co' : (canadaOnly || refusalOnly || visitorOnly) ? 'anilgoyal@kananinternational.com' : (selCounsellor?.email || ''),
                     status: 'Pending',
-                    notes: `${germanyOnly ? '[GERMANY ADMISSION] · ' : refusalOnly ? '[VISA REFUSAL CASE] · ' : visitorOnly ? '[VISITOR VISA] · ' : coachingOnly ? '[COACHING/LANGUAGE] · ' : testPrepOnly ? '[TEST PREP] · ' : canadaOnly ? '[CANADA IMMIGRATION] · ' : ''}📅 ${dateLabel} · 🕐 ${selTime} · ${mode === 'inperson' ? 'In-Person' : 'Online'} · Ref: ${bookRef}${form.notes ? ' · ' + form.notes : ''}`
+                    notes: `${germanyOnly ? '[GERMANY ADMISSION] · ' : refusalOnly ? '[VISA REFUSAL CASE] · ' : visitorOnly ? '[VISITOR VISA] · ' : coachingOnly ? '[COACHING/LANGUAGE] · ' : testPrepOnly ? '[TEST PREP] · ' : studyCountry ? `[STUDY IN ${studyCountry.toUpperCase()}] · ` : canadaOnly ? '[CANADA IMMIGRATION] · ' : ''}📅 ${dateLabel} · 🕐 ${selTime} · ${mode === 'inperson' ? 'In-Person' : 'Online'} · Ref: ${bookRef}${form.notes ? ' · ' + form.notes : ''}`
                 })
             });
         } catch (err) {
@@ -207,7 +207,8 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
                                 visitorOnly ? '✈️ Visitor Visa Consultation' :
                                     coachingOnly ? '🗣️ Language Course Consultation' :
                                         testPrepOnly ? '📝 Test Preparation Consultation' :
-                                            '📅 Book Free 1:1 Counselling'}
+                                            studyCountry ? `🎓 Study in ${studyCountry} Consultation` :
+                                                '📅 Book Free 1:1 Counselling'}
                     </h3>
                     <button className="modal-x" onClick={() => { onClose(); reset(); }}>✕</button>
                 </div>
@@ -263,8 +264,8 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
                             {selTime && <div className="book-selected-info show">🕐 {selTime} · 30 min session</div>}
                             <div className="book-nav">
                                 <button className="btn btn-outline" onClick={() => setStep(1)}>← Back</button>
-                                <button className="btn btn-primary btn-lg" disabled={!selTime} onClick={() => setStep((canadaOnly || germanyOnly || visitorOnly) ? 4 : 3)}>
-                                    {(canadaOnly || germanyOnly || visitorOnly) ? 'Next — Your Details →' : 'Next — Counsellor →'}
+                                <button className="btn btn-primary btn-lg" disabled={!selTime} onClick={() => setStep((canadaOnly || germanyOnly || visitorOnly || studyCountry) ? 4 : 3)}>
+                                    {(canadaOnly || germanyOnly || visitorOnly || studyCountry) ? 'Next — Your Details →' : 'Next — Counsellor →'}
                                 </button>
                             </div>
                         </div>
@@ -308,8 +309,8 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
                                 <div className="form-group"><label>Email *</label><input type="email" required value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="your.email@example.com" /></div>
                                 <div className="form-row">
                                     <div className="form-group"><label>Interested Destination</label>
-                                        <select value={germanyOnly ? 'Germany' : (canadaOnly || visitorOnly) ? 'Canada' : form.dest} onChange={e => !(canadaOnly || germanyOnly || visitorOnly) && setForm(f => ({ ...f, dest: e.target.value }))} disabled={canadaOnly || germanyOnly || visitorOnly}>
-                                            <option value="">Select</option>{['Canada', 'UK', 'USA', 'Australia', 'Germany', 'Dubai', 'Europe', 'Not sure yet'].map(o => <option key={o}>{o}</option>)}
+                                        <select value={germanyOnly ? 'Germany' : (canadaOnly || visitorOnly) ? 'Canada' : studyCountry || form.dest} onChange={e => !(canadaOnly || germanyOnly || visitorOnly || studyCountry) && setForm(f => ({ ...f, dest: e.target.value }))} disabled={canadaOnly || germanyOnly || visitorOnly || !!studyCountry}>
+                                            <option value="">Select</option>{['Canada', 'UK', 'USA', 'Australia', 'Germany', 'Dubai', 'Europe', 'France', 'Not sure yet'].map(o => <option key={o}>{o}</option>)}
                                         </select>
                                     </div>
                                     <div className="form-group"><label>Education Level</label>

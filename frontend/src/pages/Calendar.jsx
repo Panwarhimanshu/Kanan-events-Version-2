@@ -41,6 +41,7 @@ function Calendar() {
     const [isVisitorBooking, setIsVisitorBooking] = useState(false);
     const [isCoachingBooking, setIsCoachingBooking] = useState(false);
     const [isTestPrepBooking, setIsTestPrepBooking] = useState(false);
+    const [studyCountry, setStudyCountry] = useState("");
 
     useEffect(() => {
         axios.get(`${API_URL}/api/events?activeOnly=true`)
@@ -158,6 +159,7 @@ function Calendar() {
                 onOpenVisitorBooking={() => { setIsVisitorBooking(true); setBookingOpen(true); }}
                 onOpenCoachingBooking={() => { setIsCoachingBooking(true); setBookingOpen(true); }}
                 onOpenTestPrepBooking={() => { setIsTestPrepBooking(true); setBookingOpen(true); }}
+                onOpenStudyBooking={(country) => { setStudyCountry(country); setBookingOpen(true); }}
             />
 
             {/* FOOTER */}
@@ -229,13 +231,15 @@ function Calendar() {
                     setIsVisitorBooking(false); 
                     setIsCoachingBooking(false);
                     setIsTestPrepBooking(false);
+                    setStudyCountry("");
                 }}
-                canadaOnly={isCanadaBooking || isRefusalBooking || isVisitorBooking}
+                canadaOnly={isCanadaBooking || isRefusalBooking || isVisitorBooking || studyCountry === 'Canada'}
                 refusalOnly={isRefusalBooking}
-                germanyOnly={isGermanyBooking}
+                germanyOnly={isGermanyBooking || studyCountry === 'Germany'}
                 visitorOnly={isVisitorBooking}
                 coachingOnly={isCoachingBooking}
                 testPrepOnly={isTestPrepBooking}
+                studyCountry={studyCountry}
             />
         </>
     );
