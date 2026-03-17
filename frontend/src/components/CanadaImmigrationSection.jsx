@@ -121,7 +121,7 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                             <div className="immigration-content">
                                 <h2 style={{ color: '#155E75' }}>Study in Europe</h2>
                                 <p className="sub-text" style={{ color: '#475569' }}>
-                                    Experience world-class European education. Study at top-ranked universities with affordable tuition. Hassle-free Schengen visa process with strong post-study work opportunities. Experience rich culture and lifestyle.
+                                    Experience world-class European education. Expert guidance for <strong>Ireland, France, Finland, Italy, Lithuania, Hungary, Belgium</strong>, and <strong>Denmark</strong>. Affordable tuition, Schengen visa assistance, and strong post-study work opportunities.
                                 </p>
                                 <button className="btn-book" style={{ background: '#0891B2' }} onClick={() => onOpenStudyBooking('Europe')}>
                                     Start Journey

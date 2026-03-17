@@ -310,7 +310,7 @@ export function BookingModal({ isOpen, onClose, canadaOnly = false, refusalOnly 
                                 <div className="form-row">
                                     <div className="form-group"><label>Interested Destination</label>
                                         <select value={germanyOnly ? 'Germany' : (canadaOnly || visitorOnly) ? 'Canada' : studyCountry || form.dest} onChange={e => !(canadaOnly || germanyOnly || visitorOnly || studyCountry) && setForm(f => ({ ...f, dest: e.target.value }))} disabled={canadaOnly || germanyOnly || visitorOnly || !!studyCountry}>
-                                            <option value="">Select</option>{['Canada', 'UK', 'USA', 'Australia', 'Germany', 'Dubai', 'Europe', 'Not sure yet'].map(o => <option key={o}>{o}</option>)}
+                                            <option value="">Select</option>{['Canada', 'UK', 'USA', 'Australia', 'Germany', 'Dubai', 'Ireland', 'France', 'Finland', 'Italy', 'Lithuania', 'Hungary', 'Belgium', 'Denmark', 'Europe', 'Not sure yet'].map(o => <option key={o}>{o}</option>)}
                                         </select>
                                     </div>
                                     <div className="form-group"><label>Education Level</label>
