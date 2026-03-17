@@ -161,7 +161,7 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                     <div className="immigration-card" style={{ background: '#F8F5FF', borderColor: '#E8E0FF' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
-                                <h2 style={{ color: '#4B0082' }}>Get Germany Admission Information</h2>
+                                <h2 style={{ color: '#4B0082' }}>Get Free Education in Germany</h2>
                                 <p className="sub-text" style={{ color: '#475569' }}>
                                     Complete guidance for: <strong>Admission in Public Universities</strong> • <strong>Admission in Private Universities</strong>
                                 </p>
