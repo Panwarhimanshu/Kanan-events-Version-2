@@ -14,9 +14,9 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                     <div className="immigration-card" style={{ background: '#FFF1F2', borderColor: '#FECDD3' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
-                                <h2 style={{ color: '#BE123C' }}>Study in Canada</h2>
+                                <h2 style={{ color: '#BE123C' }}>Study in Canada - Your gateway to global education and Permanent Residence.</h2>
                                 <p className="sub-text" style={{ color: '#475569' }}>
-                                    Your gateway to world-class education. Complete assistance for <strong>SPP/Non-SPP Colleges</strong>, <strong>Universities</strong>, and <strong>Scholarships</strong>.
+                                    Expert guidance for <strong>admissions in Public colleges & Universities</strong>, <strong>Visa</strong>, <strong>PGWP aligned program</strong> and <strong>PR ORIENTED PROGRAM</strong>
                                 </p>
                                 <button className="btn-book" style={{ background: '#E11D48' }} onClick={() => onOpenStudyBooking('Canada')}>
                                     Plan My Study
@@ -184,10 +184,10 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                     <div className="immigration-card" style={{ background: '#F0F7FF', borderColor: '#D0E3FF' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
-                                <h2 style={{ color: '#003399' }}>Canada Immigration & PR</h2>
+                                <h2 style={{ color: '#003399' }}>Canada Immigration & PR - Simplifying your journey through Express Entry, PNP, and PR pathways.</h2>
                                 <p className="sub-text">
-                                    Get expert guidance on Express Entry, PNP, and Study-to-PR paths.
-                                    Our certified consultants help you navigate the complex Canadian immigration process.
+                                    End-to-end support from profile evaluation to successful PR approval.
+                                    Our experts ensure a smooth and strategic immigration process.
                                 </p>
                                 <button className="btn-book" onClick={onOpenCanadaBooking} style={{ background: '#0052CC' }}>
                                     Book Consultation
@@ -206,9 +206,9 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                     <div className="immigration-card" style={{ background: '#FDF2F8', borderColor: '#FBCFE8' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
-                                <h2 style={{ color: '#9D174D' }}>Visitor Visa</h2>
+                                <h2 style={{ color: '#9D174D' }}>Visitor Visa - Expert assistance for hassle-free visitor visa applications.</h2>
                                 <p className="sub-text" style={{ color: '#475569' }}>
-                                    We can assist you in applying for a visitor visa. Having offices at both ends of the process, we offer high-quality service in the region. This option allows you to invite your friends and family.
+                                    Invite your friends and family with complete end-to-end support.
                                 </p>
                                 <button className="btn-book" style={{ background: '#DB2777' }} onClick={onOpenVisitorBooking}>
                                     Book Consultation
