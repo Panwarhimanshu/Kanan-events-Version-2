@@ -14,8 +14,9 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                     <div className="immigration-card" style={{ background: '#FFF1F2', borderColor: '#FECDD3' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
-                                <h2 style={{ color: '#BE123C' }}>Study in Canada - Your gateway to global education and Permanent Residence.</h2>
+                                <h2 style={{ color: '#BE123C' }}>Study in Canada</h2>
                                 <p className="sub-text" style={{ color: '#475569' }}>
+                                    Your gateway to global education and Permanent Residence.
                                     Expert guidance for <strong>admissions in Public colleges & Universities</strong>, <strong>Visa</strong>, <strong>PGWP aligned program</strong> and <strong>PR ORIENTED PROGRAM</strong>
                                 </p>
                                 <button className="btn-book" style={{ background: '#E11D48' }} onClick={() => onOpenStudyBooking('Canada')}>
@@ -184,8 +185,9 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                     <div className="immigration-card" style={{ background: '#F0F7FF', borderColor: '#D0E3FF' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
-                                <h2 style={{ color: '#003399' }}>Canada Immigration & PR - Simplifying your journey through Express Entry, PNP, and PR pathways.</h2>
+                                <h2 style={{ color: '#003399' }}>Canada Immigration & PR</h2>
                                 <p className="sub-text">
+                                    Simplifying your journey through Express Entry, PNP, and PR pathways.
                                     End-to-end support from profile evaluation to successful PR approval.
                                     Our experts ensure a smooth and strategic immigration process.
                                 </p>
@@ -206,9 +208,9 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                     <div className="immigration-card" style={{ background: '#FDF2F8', borderColor: '#FBCFE8' }}>
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
-                                <h2 style={{ color: '#9D174D' }}>Visitor Visa - Expert assistance for hassle-free visitor visa applications.</h2>
+                                <h2 style={{ color: '#9D174D' }}>Visitor Visa</h2>
                                 <p className="sub-text" style={{ color: '#475569' }}>
-                                    Invite your friends and family with complete end-to-end support.
+                                    Expert assistance for hassle-free visitor visa applications. Invite your friends and family with complete end-to-end support.
                                 </p>
                                 <button className="btn-book" style={{ background: '#DB2777' }} onClick={onOpenVisitorBooking}>
                                     Book Consultation
