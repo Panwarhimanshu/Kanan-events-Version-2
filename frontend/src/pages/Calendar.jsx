@@ -60,6 +60,16 @@ function Calendar() {
     const [isTestPrepBooking, setIsTestPrepBooking] = useState(false);
     const [studyCountry, setStudyCountry] = useState("");
 
+    // Helper to build date display strings from event data
+    const enrichEvent = (ev) => {
+        let dateNum = ev.dateDayStr, dateMonStr = ev.dateMonthStr;
+        if (!dateNum && ev.date) {
+            const parts = ev.date.split('/');
+            if (parts.length >= 2) { dateNum = parts[0]; dateMonStr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][parseInt(parts[1], 10) - 1] || 'MAR'; }
+        }
+        return { ...ev, dateDayStr: dateNum, dateMonthStr: dateMonStr };
+    };
+
     useEffect(() => {
         axios.get(`${API_URL}/api/events?activeOnly=true`)
             .then(res => { if (res.data.success) setEventsData(res.data.data); })
@@ -98,17 +108,9 @@ function Calendar() {
 
             return true;
         });
-    }, [eventsData, activeFilter, searchTerm]);
+    }, [eventsData, activeFilter, searchTerm, activeMonth]);
 
-    // Helper to build date display strings from event data
-    const enrichEvent = (ev) => {
-        let dateNum = ev.dateDayStr, dateMonStr = ev.dateMonthStr;
-        if (!dateNum && ev.date) {
-            const parts = ev.date.split('/');
-            if (parts.length >= 2) { dateNum = parts[0]; dateMonStr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][parseInt(parts[1], 10) - 1] || 'MAR'; }
-        }
-        return { ...ev, dateDayStr: dateNum, dateMonthStr: dateMonStr };
-    };
+
 
     return (
         <>
