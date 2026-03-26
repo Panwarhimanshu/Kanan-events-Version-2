@@ -1,12 +1,21 @@
 import React from 'react';
 
-function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, onOpenGermanyBooking, onOpenVisitorBooking, onOpenCoachingBooking, onOpenTestPrepBooking, onOpenStudyBooking }) {
+function CanadaImmigrationSection({ 
+    onOpenCanadaBooking, 
+    onOpenRefusalBooking, 
+    onOpenGermanyBooking, 
+    onOpenVisitorBooking, 
+    onOpenCoachingBooking, 
+    onOpenTestPrepBooking, 
+    onOpenStudyBooking 
+}) {
     return (
         <section className="immigration-section" id="expert-services">
             <div className="container">
                 <div className="section-title-sm">
-                    <h3>Explore Expertise</h3>
+                    <h3>Premium Expertise</h3>
                     <h2>Our Specialist Services</h2>
+                    <p style={{ color: '#64748b', marginTop: '16px', fontSize: '18px' }}>Empowering your global ambitions with certified counselling and end-to-end support.</p>
                 </div>
 
                 <div className="expert-grid">
@@ -15,16 +24,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#BE123C' }}>Study in Canada</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Your gateway to global education and Permanent Residence.
-                                    Expert guidance for <strong>admissions in Public colleges & Universities</strong>, <strong>Visa</strong>, <strong>PGWP aligned program</strong> and <strong>PR ORIENTED PROGRAM</strong>
+                                <p className="sub-text">
+                                    Your gateway to global education and Permanent Residence. Expert guidance for admissions in <strong>Public colleges & Universities</strong>, Visa, PGWP aligned program and PR ORIENTED PROGRAM.
                                 </p>
                                 <button className="btn-book" style={{ background: '#E11D48' }} onClick={() => onOpenStudyBooking('Canada')}>
-                                    Plan My Study
+                                    PLAN MY STUDY
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#BE123C" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#BE123C" strokeWidth="1">
                                     <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
                                     <path d="M2 17l10 5 10-5"></path>
                                     <path d="M2 12l10 5 10-5"></path>
@@ -38,15 +46,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#1E40AF' }}>Study in USA</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Secure admission to top-ranked U.S. universities for <strong>Bachelor’s</strong>, <strong>Master’s</strong>, and <strong>funded PhD programs</strong>. Receive expert guidance on scholarships, application guidelines, and personalized visa assistance.
+                                <p className="sub-text">
+                                    Secure admission to top-ranked U.S. universities for <strong>Bachelor’s, Master’s, and funded PhD</strong> programs. Receive expert guidance on scholarships, application guidelines, and personalized visa assistance.
                                 </p>
                                 <button className="btn-book" style={{ background: '#2563EB' }} onClick={() => onOpenStudyBooking('USA')}>
-                                    Start Application
+                                    START APPLICATION
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#1E40AF" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#1E40AF" strokeWidth="1">
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <path d="M12 2v20M2 12h20"></path>
                                 </svg>
@@ -59,15 +67,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#5B21B6' }}>Study in UK</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Heritage and excellence. Fast-track 1-year Masters, <strong>No IELTS options</strong>, and <strong>Post-Study Work (PSW)</strong> guidance for top UK institutions.
+                                <p className="sub-text">
+                                    Heritage and excellence. Fast-track <strong>1-year Masters, No IELTS options</strong>, and Post-Study Work (PSW) guidance for top UK institutions.
                                 </p>
                                 <button className="btn-book" style={{ background: '#7C3AED' }} onClick={() => onOpenStudyBooking('UK')}>
-                                    Get Admission
+                                    GET ADMISSION
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#5B21B6" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#5B21B6" strokeWidth="1">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                                 </svg>
                             </div>
@@ -79,15 +87,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#166534' }}>Study in Australia</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Quality life and education. Expert help for <strong>Group of Eight</strong> universities, <strong>Level 1 providers</strong>, and professional year guidance.
+                                <p className="sub-text">
+                                    Quality life and education. Expert help for <strong>Group of Eight</strong> universities, Level 1 providers, and professional year guidance.
                                 </p>
                                 <button className="btn-book" style={{ background: '#16A34A' }} onClick={() => onOpenStudyBooking('Australia')}>
-                                    Explore Courses
+                                    EXPLORE COURSES
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#166534" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#166534" strokeWidth="1">
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <path d="M12 6l-1 5-5 1 5 1 1 5 1-5 5-1-5-1-1-5z"></path>
                                 </svg>
@@ -100,15 +108,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#92400E' }}>Study in Dubai</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Modern education hub. <strong>No IELTS</strong>, <strong>No Funds</strong>, <strong>Low Budget</strong>, and <strong>Pathway to Canada, UK, USA And Australia</strong>. Earn while you learn with flexible work rights.
+                                <p className="sub-text">
+                                    Modern education hub. <strong>No IELTS, No Funds, Low Budget</strong>, and Pathway to Canada, UK, USA and Australia. Earn while you learn with flexible work rights.
                                 </p>
                                 <button className="btn-book" style={{ background: '#D97706' }} onClick={() => onOpenStudyBooking('Dubai')}>
-                                    Apply Now
+                                    APPLY NOW
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#92400E" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#92400E" strokeWidth="1">
                                     <path d="M3 21h18M3 7l9-4 9 4v14H3V7z"></path>
                                     <path d="M9 21V11h6v10"></path>
                                 </svg>
@@ -121,15 +129,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#155E75' }}>Study in Europe</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Experience world-class European education. Expert guidance for <strong>Ireland, France, Finland, Italy, Lithuania, Hungary, Belgium</strong>, and <strong>Denmark</strong>. Affordable tuition, Schengen visa assistance, and strong post-study work opportunities.
+                                <p className="sub-text">
+                                    Experience world-class European education. Expert guidance for <strong>Ireland, France, Finland, Italy, Lithuania, Hungary, Belgium, and Denmark</strong>. Affordable tuition, Schengen visa assistance, and strong post-study work opportunities.
                                 </p>
                                 <button className="btn-book" style={{ background: '#0891B2' }} onClick={() => onOpenStudyBooking('Europe')}>
-                                    Start Journey
+                                    START JOURNEY
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#155E75" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#155E75" strokeWidth="1">
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <path d="M2 12h20"></path>
                                     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
@@ -143,15 +151,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#991B1B' }}>Study MBBS Abroad</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Study in Mbbs at top university globaly
+                                <p className="sub-text">
+                                    Start your journey to becoming a globally recognised doctor with affordable tuition fees and <strong>NMC-approved</strong> medical degrees, opening doors to international medical careers and global opportunities.
                                 </p>
                                 <button className="btn-book" style={{ background: '#DC2626' }} onClick={() => onOpenStudyBooking('MBBS')}>
-                                    Medical Admission
+                                    MEDICAL ADMISSION
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#991B1B" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#991B1B" strokeWidth="1">
                                     <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
                                     <path d="M12 11v7M10 13h4M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"></path>
                                 </svg>
@@ -164,15 +172,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#4B0082' }}>Get Free Education in Germany</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Complete guidance for: <strong>Admission in Public Universities</strong> • <strong>Admission in Private Universities</strong>
+                                <p className="sub-text">
+                                    Complete guidance for: Admission in <strong>Public Universities</strong> &bull; Admission in <strong>Private Universities</strong>.
                                 </p>
                                 <button className="btn-book" style={{ background: '#7B2FF7' }} onClick={onOpenGermanyBooking}>
-                                    Book Consultation
+                                    BOOK CONSULTATION
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#4B0082" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#4B0082" strokeWidth="1">
                                     <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
                                     <path d="M2 17l10 5 10-5"></path>
                                     <path d="M2 12l10 5 10-5"></path>
@@ -187,16 +195,14 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                             <div className="immigration-content">
                                 <h2 style={{ color: '#003399' }}>Canada Immigration & PR</h2>
                                 <p className="sub-text">
-                                    Simplifying your journey through Express Entry, PNP, and PR pathways.
-                                    End-to-end support from profile evaluation to successful PR approval.
-                                    Our experts ensure a smooth and strategic immigration process.
+                                    Simplifying your journey through <strong>Express Entry, PNP, and PR</strong> pathways. End-to-end support from profile evaluation to successful PR approval. Our experts ensure a smooth and strategic immigration process.
                                 </p>
                                 <button className="btn-book" onClick={onOpenCanadaBooking} style={{ background: '#0052CC' }}>
-                                    Book Consultation
+                                    PROFILE EVALUATION
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#003399" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#003399" strokeWidth="1">
                                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                                 </svg>
@@ -209,15 +215,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#9D174D' }}>Visitor Visa</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
+                                <p className="sub-text">
                                     Expert assistance for hassle-free visitor visa applications. Invite your friends and family with complete end-to-end support.
                                 </p>
                                 <button className="btn-book" style={{ background: '#DB2777' }} onClick={onOpenVisitorBooking}>
-                                    Book Consultation
+                                    GET VISA NOW
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#9D174D" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#9D174D" strokeWidth="1">
                                     <rect x="3" y="7" width="18" height="13" rx="2"></rect>
                                     <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
                                 </svg>
@@ -230,15 +236,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#1E40AF' }}>Language Courses</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Master a new language with our expert coaching for: <strong>English</strong> • <strong>French</strong> • <strong>German</strong>. Tailored programs for all levels.
+                                <p className="sub-text">
+                                    Master a new language with our expert coaching for: <strong>English &bull; French &bull; German</strong>. Tailored programs for all levels.
                                 </p>
                                 <button className="btn-book" style={{ background: '#2563EB' }} onClick={onOpenCoachingBooking}>
-                                    Join Course
+                                    Join Training
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#1E40AF" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#1E40AF" strokeWidth="1">
                                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                                 </svg>
                             </div>
@@ -250,15 +256,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#065F46' }}>English Proficiency Tests</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Expert coaching to ace your: <strong>IELTS</strong> • <strong>PTE</strong> • <strong>Duolingo</strong> • <strong>TOEFL</strong>. High-score strategies.
+                                <p className="sub-text">
+                                    Expert coaching to ace your: <strong>IELTS &bull; PTE &bull; Duolingo &bull; TOEFL</strong>. High-score strategies.
                                 </p>
                                 <button className="btn-book" style={{ background: '#059669' }} onClick={onOpenTestPrepBooking}>
                                     Start Prep
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#065F46" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#065F46" strokeWidth="1">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                 </svg>
@@ -271,15 +277,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#9A3412' }}>Academic Entrance Tests</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Excel in global entrance exams: <strong>SAT</strong> • <strong>GRE</strong> • <strong>GMAT</strong>. Proven methods for top university admissions.
+                                <p className="sub-text">
+                                    Excel in global entrance exams: <strong>SAT &bull; GRE &bull; GMAT</strong>. Proven methods for top university admissions.
                                 </p>
                                 <button className="btn-book" style={{ background: '#EA580C' }} onClick={onOpenTestPrepBooking}>
                                     Learn More
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#9A3412" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#9A3412" strokeWidth="1">
                                     <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
                                     <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
                                 </svg>
@@ -292,16 +298,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#006644' }}>International and Domestic Travel Ticketing</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Hassle-free booking for flight tickets.
-                                    We offer competitive rates and specialized student travel support.
+                                <p className="sub-text">
+                                    Hassle-free booking for flight tickets. We offer competitive rates and specialized student travel support.
                                 </p>
                                 <a href="https://travelwithkanan.com/" target="_blank" rel="noreferrer" className="btn-book" style={{ background: '#00B368', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                     VIEW PORTAL
                                 </a>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#006644" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#006644" strokeWidth="1">
                                     <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-1.1.1-1.3.5l-.3.4c-.2.5-.2 1.1.1 1.5L9 12l-3.3 3.3-2.1-.7c-.5-.2-1.1 0-1.5.3l-.3.3c-.4.4-.4 1 0 1.4l2.2 2.2 2.2 2.2c.4.4 1 .4 1.4 0l.3-.3c.3-.4.5-1 .3-1.5l-.7-2.1L12 15l3.4 5.7c.4.3 1 .3 1.5.1l.4-.3c.4-.2.6-.8.5-1.3z"></path>
                                 </svg>
                             </div>
@@ -313,15 +318,15 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#855100' }}>Expert Opinion on Visa Refusal Cases</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Specialized support for: <strong>Student Visa</strong> • <strong>Visitor Visa</strong> • <strong>Spouse Visa</strong> • <strong>PR (Permanent Residency)</strong>
+                                <p className="sub-text">
+                                    Specialized support for: <strong>Student Visa &bull; Visitor Visa &bull; Spouse Visa &bull; PR (Permanent Residency)</strong>.
                                 </p>
                                 <button className="btn-book" style={{ background: '#FF6B00' }} onClick={onOpenRefusalBooking}>
-                                    Get Expert Opinion
+                                    Expert Opinion
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#855100" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#855100" strokeWidth="1">
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <line x1="12" y1="8" x2="12" y2="12"></line>
                                     <line x1="12" y1="16" x2="12.01" y2="16"></line>
@@ -335,20 +340,64 @@ function CanadaImmigrationSection({ onOpenCanadaBooking, onOpenRefusalBooking, o
                         <div className="immigration-card-inner">
                             <div className="immigration-content">
                                 <h2 style={{ color: '#0F766E' }}>Post Visa Services</h2>
-                                <p className="sub-text" style={{ color: '#475569' }}>
-                                    Comprehensive support after your visa approval: <strong>Education Loan</strong> • <strong>Ticketing</strong> • <strong>Forex</strong> • <strong>VSA</strong>
+                                <p className="sub-text">
+                                    Comprehensive support after your visa approval: <strong>Education Loan &bull; Ticketing &bull; Forex &bull; VSA</strong>.
                                 </p>
-                                <button className="btn-book" style={{ background: '#0D9488' }} onClick={onOpenCanadaBooking}>
-                                    Avail Services
+                                <button className="btn-book" style={{ background: '#0D9488' }} onClick={() => onOpenCanadaBooking}>
+                                    Avail Support
                                 </button>
                             </div>
                             <div className="immigration-bg-icon">
-                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#0F766E" strokeWidth="1">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#0F766E" strokeWidth="1">
                                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
                         </div>
                     </div>
+
+                    {/* BOX 17: Psychometric Assessment Test */}
+                    <div className="immigration-card" style={{ background: '#F5F3FF', borderColor: '#DDD6FE' }}>
+                        <div className="immigration-card-inner">
+                            <div className="immigration-content">
+                                <h2 style={{ color: '#4C1D95' }}>Psychometric Test</h2>
+                                <p className="sub-text">
+                                    Identify your ideal career path with our scientific mapping to align strengths with global opportunities.
+                                </p>
+                                <button className="btn-book" style={{ background: '#6D28D9' }} onClick={onOpenCoachingBooking}>
+                                    BOOK MY TEST
+                                </button>
+                            </div>
+                            <div className="immigration-bg-icon">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#4C1D95" strokeWidth="1">
+                                    <path d="M9 18h6" />
+                                    <path d="M10 22h4" />
+                                    <path d="M12 2a7 7 0 0 0-7 7c0 2.32 1.04 4.39 2.66 5.82L8.5 18h7l.84-3.18A7.05 7.05 0 0 0 19 9a7 7 0 0 0-7-7z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* BOX 18: Career Talk Show */}
+                    <div className="immigration-card" style={{ background: '#F0F9FF', borderColor: '#BAE6FD' }}>
+                        <div className="immigration-card-inner">
+                            <div className="immigration-content">
+                                <h2 style={{ color: '#0369A1' }}>Career Talk Show</h2>
+                                <p className="sub-text">
+                                    Join our exclusive seminars and interactive sessions with industry experts to gain deep insights into global <strong>market trends, emerging careers</strong>, and networking.
+                                </p>
+                                <button className="btn-book" style={{ background: '#0284C7' }} onClick={onOpenCoachingBooking}>
+                                    JOIN SESSION
+                                </button>
+                            </div>
+                            <div className="immigration-bg-icon">
+                                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="#0369A1" strokeWidth="1">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                    <polygon points="11 7 16 12 11 17 11 7"></polygon>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>

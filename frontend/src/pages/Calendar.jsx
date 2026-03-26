@@ -23,10 +23,27 @@ const TYPE_FILTERS = [
     { key: 'other', label: 'Other' }
 ];
 
+const MONTH_FILTERS = [
+    { key: 'all', label: 'All Months' },
+    { key: 'Jan', label: 'Jan' },
+    { key: 'Feb', label: 'Feb' },
+    { key: 'Mar', label: 'Mar' },
+    { key: 'Apr', label: 'Apr' },
+    { key: 'May', label: 'May' },
+    { key: 'Jun', label: 'Jun' },
+    { key: 'Jul', label: 'Jul' },
+    { key: 'Aug', label: 'Aug' },
+    { key: 'Sep', label: 'Sep' },
+    { key: 'Oct', label: 'Oct' },
+    { key: 'Nov', label: 'Nov' },
+    { key: 'Dec', label: 'Dec' }
+];
+
 function Calendar() {
     const [eventsData, setEventsData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [activeFilter, setActiveFilter] = useState('all');
+    const [activeMonth, setActiveMonth] = useState('all');
 
     // Modals
     const [registerEvent, setRegisterEvent] = useState(null);
@@ -72,6 +89,13 @@ function Calendar() {
                 const hay = `${e.title || ''} ${e.type || ''} ${e.subtitle || ''} ${e.activity || ''} ${e.searchKeys || ''} ${e.teamLead || e.leadName || ''} ${e.country || ''} ${e.branch || e.venue || ''} ${e.dept || ''} ${e.day || ''} ${e.mainEvent || ''} ${tagsStr}`.toLowerCase();
                 if (!hay.includes(q)) return false;
             }
+
+            // Month Filter
+            if (activeMonth !== 'all') {
+                const eventMonth = (enrichEvent(e).dateMonthStr || '').toLowerCase();
+                if (eventMonth !== activeMonth.toLowerCase()) return false;
+            }
+
             return true;
         });
     }, [eventsData, activeFilter, searchTerm]);
@@ -107,6 +131,15 @@ function Calendar() {
                         ))}
                     </div>
                     <div className="filter-group">
+                        <select 
+                            className="month-select"
+                            value={activeMonth}
+                            onChange={e => setActiveMonth(e.target.value)}
+                        >
+                            {MONTH_FILTERS.map(m => (
+                                <option key={m.key} value={m.key}>{m.label}</option>
+                            ))}
+                        </select>
                         <div className="search-wrap">
                             <span className="search-icon">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>

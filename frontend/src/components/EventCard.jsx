@@ -18,7 +18,7 @@ function EventCard({ event: ev, onOpenRegister, onOpenInvite, onOpenVcard }) {
           <div className="ev-info">
             {ev.mainEvent && <div className="ev-main-event">{ev.mainEvent}</div>}
             <h3>{ev.title || ev.activity}</h3>
-            {ev.subtitle && <p style={{ fontSize: '12px', color: 'var(--k-ink-muted)', marginTop: '2px' }}>{ev.subtitle}</p>}
+            {ev.subtitle && <p className="ev-subtitle">{ev.subtitle}</p>}
           </div>
         </div>
 
