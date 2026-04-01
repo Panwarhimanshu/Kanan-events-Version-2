@@ -109,6 +109,7 @@ const eventSchema = new mongoose.Schema({
     ribbonColor: String,
     dateDayStr: String,
     dateMonthStr: String,
+    event_date: Date, // Added for automatic deactivation
     title: { type: String, required: true },
     subtitle: String,
     venue: String,
@@ -424,9 +425,30 @@ app.delete('/api/interests/:id', async (req, res) => {
 
 // --- Dynamic Events APIs ---
 
+// Helper to compute actual Date object from strings
+const computeEventDate = (dayStr, monStr) => {
+    if (!dayStr || !monStr) return null;
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const m = monStr.trim().substring(0, 3).toLowerCase();
+    const monthIdx = monthNames.findIndex(mn => mn.toLowerCase() === m);
+    if (monthIdx === -1) return null;
+    const day = parseInt(dayStr.replace(/\D/g, ''), 10);
+    if (isNaN(day)) return null;
+    const year = new Date().getFullYear() < 2026 ? 2026 : new Date().getFullYear();
+    const date = new Date(year, monthIdx, day, 23, 59, 59, 999);
+    return date;
+};
+
 app.get('/api/events/featured', async (req, res) => {
     try {
         const row = await Event.findOne({ is_featured: true, is_active: true });
+        if (row) {
+            const evDate = row.event_date || computeEventDate(row.dateDayStr, row.dateMonthStr);
+            if (evDate && evDate < new Date()) {
+                await Event.findByIdAndUpdate(row._id, { is_active: false, is_featured: false });
+                return res.json({ success: true, data: null });
+            }
+        }
         res.json({ success: true, data: row });
     } catch (error) {
         console.error('Error fetching featured event:', error);
@@ -439,8 +461,30 @@ app.get('/api/events', async (req, res) => {
         const { activeOnly } = req.query;
         let query = {};
         if (activeOnly === 'true') query.is_active = true;
+        
         const rows = await Event.find(query).sort({ created_at: -1 });
-        res.json({ success: true, data: rows });
+
+        // Automatic Deactivation Logic
+        const now = new Date();
+        const results = [];
+        for (const ev of rows) {
+            const evDate = ev.event_date || computeEventDate(ev.dateDayStr, ev.dateMonthStr);
+            if (evDate && evDate < now && ev.is_active) {
+                // Silently deactivate in DB
+                await Event.findByIdAndUpdate(ev._id, { is_active: false, is_featured: false });
+                
+                if (activeOnly === 'true') continue; // Hide from frontend results
+                
+                // For admin view, show as inactive
+                const plainEvent = ev.toJSON ? ev.toJSON() : ev;
+                plainEvent.is_active = false;
+                plainEvent.is_featured = false;
+                results.push(plainEvent);
+                continue;
+            }
+            results.push(ev);
+        }
+        res.json({ success: true, data: results });
     } catch (error) {
         console.error('Error fetching events:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
@@ -455,7 +499,8 @@ app.post('/api/events', async (req, res) => {
             ...data,
             is_active: data.is_active !== false,
             isOnline: !!data.isOnline,
-            is_featured: !!data.is_featured
+            is_featured: !!data.is_featured,
+            event_date: computeEventDate(data.dateDayStr, data.dateMonthStr)
         });
         await newEvent.save();
         res.status(201).json({ success: true, message: 'Event created', id: newEvent.id });
@@ -473,7 +518,8 @@ app.put('/api/events/:id', async (req, res) => {
             ...data,
             is_active: data.is_active !== false,
             isOnline: !!data.isOnline,
-            is_featured: !!data.is_featured
+            is_featured: !!data.is_featured,
+            event_date: computeEventDate(data.dateDayStr, data.dateMonthStr)
         });
         if (!updated) return res.status(404).json({ success: false, message: 'Event not found' });
         res.json({ success: true, message: 'Event updated' });
@@ -578,7 +624,8 @@ app.post('/api/events/bulk', uploadMemory.single('csv_file'), async (req, res) =
                         const newEv = new Event({
                             month, type, ribbonColor, dateDayStr, dateMonthStr, title, subtitle,
                             venue, time, tags: parsedTags, isOnline: false, activitiesLabel: 'Activities',
-                            activities, searchKeys, is_active: true, is_featured: false, teamLead
+                            activities, searchKeys, is_active: true, is_featured: false, teamLead,
+                            event_date: computeEventDate(dateDayStr, dateMonthStr)
                         });
                         await newEv.save();
                         inserted++;
