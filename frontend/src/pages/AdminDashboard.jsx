@@ -703,50 +703,92 @@ function AdminDashboard() {
                                     })()}
                                     <input name="venue" placeholder="Venue" value={formData.venue} onChange={handleChange} style={inputStyle} />
                                     {(() => {
-                                        let startTime = '';
-                                        let endTime = '';
-                                        const t = formData.time || '';
-                                        if (t.includes(' – ')) { [startTime, endTime] = t.split(' – '); }
-                                        else if (t.includes(' - ')) { [startTime, endTime] = t.split(' - '); }
-                                        else if (t.includes(' TO ')) { [startTime, endTime] = t.split(' TO '); }
-                                        else if (t.includes(' to ')) { [startTime, endTime] = t.split(' to '); }
-                                        else if (t) { startTime = t; endTime = ''; }
-
-                                        startTime = startTime ? startTime.trim() : '';
-                                        endTime = endTime ? endTime.trim() : '';
-                                        if (startTime === '7:00 PM') startTime = '07:00 PM'; // Normalization for old entries
-                                        if (endTime === '7:00 PM') endTime = '07:00 PM';
-                                        if (endTime === '5:00 PM') endTime = '05:00 PM';
+                                        const slots = (formData.time || '').split(',').map(t => t.trim()).filter(Boolean);
+                                        if (slots.length === 0) slots.push('');
 
                                         const TIMES = ["08:00 AM", "08:30 AM", "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM"];
 
                                         return (
-                                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                                <select
-                                                    value={startTime}
-                                                    onChange={(e) => {
-                                                        const start = e.target.value;
-                                                        setFormData({ ...formData, time: `${start} TO ${endTime || '05:00 PM'}` });
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                <label style={{ fontSize: '12px', fontWeight: 'bold', color: '#7B8599', paddingLeft: '4px' }}>Time Slots</label>
+                                                {slots.map((t, idx) => {
+                                                    let startTime = '';
+                                                    let endTime = '';
+                                                    if (t.includes(' – ')) { [startTime, endTime] = t.split(' – '); }
+                                                    else if (t.includes(' - ')) { [startTime, endTime] = t.split(' - '); }
+                                                    else if (t.includes(' TO ')) { [startTime, endTime] = t.split(' TO '); }
+                                                    else if (t.includes(' to ')) { [startTime, endTime] = t.split(' to '); }
+                                                    else if (t) { startTime = t; endTime = ''; }
+
+                                                    startTime = startTime ? startTime.trim() : '';
+                                                    endTime = endTime ? endTime.trim() : '';
+                                                    if (startTime === '7:00 PM') startTime = '07:00 PM'; // Normalization for old entries
+                                                    if (endTime === '7:00 PM') endTime = '07:00 PM';
+                                                    if (endTime === '5:00 PM') endTime = '05:00 PM';
+
+                                                    return (
+                                                        <div key={idx} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                                            <select
+                                                                value={startTime}
+                                                                onChange={(e) => {
+                                                                    const newSlots = [...slots];
+                                                                    newSlots[idx] = `${e.target.value} TO ${endTime || '05:00 PM'}`;
+                                                                    setFormData({ ...formData, time: newSlots.join(', ') });
+                                                                }}
+                                                                style={{ ...inputStyle, flex: '1', cursor: 'pointer', margin: 0 }}
+                                                                required
+                                                            >
+                                                                <option value="">Start Time</option>
+                                                                {TIMES.map(tm => <option key={tm} value={tm}>{tm}</option>)}
+                                                            </select>
+                                                            <span style={{ color: '#7B8599', fontWeight: 'bold', fontSize: '12px' }}>TO</span>
+                                                            <select
+                                                                value={endTime}
+                                                                onChange={(e) => {
+                                                                    const newSlots = [...slots];
+                                                                    newSlots[idx] = `${startTime || '10:00 AM'} TO ${e.target.value}`;
+                                                                    setFormData({ ...formData, time: newSlots.join(', ') });
+                                                                }}
+                                                                style={{ ...inputStyle, flex: '1', cursor: 'pointer', margin: 0 }}
+                                                                required
+                                                            >
+                                                                <option value="">End Time</option>
+                                                                {TIMES.map(tm => <option key={tm} value={tm}>{tm}</option>)}
+                                                            </select>
+                                                            {slots.length > 1 && (
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        const newSlots = slots.filter((_, i) => i !== idx);
+                                                                        setFormData({ ...formData, time: newSlots.join(', ') });
+                                                                    }}
+                                                                    style={{
+                                                                        padding: '10px 14px', background: '#FFF0F0', color: '#E53935',
+                                                                        border: '1px solid #FFCDD2', borderRadius: '8px', cursor: 'pointer',
+                                                                        fontWeight: 'bold', fontSize: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                                                    }}
+                                                                    title="Remove Slot"
+                                                                >
+                                                                    ✕
+                                                                </button>
+                                                            )}
+                                                        </div>
+                                                    );
+                                                })}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const newSlots = [...slots, '10:00 AM TO 05:00 PM'];
+                                                        setFormData({ ...formData, time: newSlots.join(', ') });
                                                     }}
-                                                    style={{ ...inputStyle, flex: '1', cursor: 'pointer' }}
-                                                    required
-                                                >
-                                                    <option value="">Start Time</option>
-                                                    {TIMES.map(tm => <option key={tm} value={tm}>{tm}</option>)}
-                                                </select>
-                                                <span style={{ color: '#7B8599', fontWeight: 'bold', fontSize: '12px' }}>TO</span>
-                                                <select
-                                                    value={endTime}
-                                                    onChange={(e) => {
-                                                        const end = e.target.value;
-                                                        setFormData({ ...formData, time: `${startTime || '10:00 AM'} TO ${end}` });
+                                                    style={{
+                                                        alignSelf: 'flex-start', padding: '6px 12px', background: '#F4F6FA', color: '#0052CC',
+                                                        border: '1px dashed #0052CC', borderRadius: '4px', cursor: 'pointer',
+                                                        fontWeight: 'bold', fontSize: '12px', marginTop: '4px'
                                                     }}
-                                                    style={{ ...inputStyle, flex: '1', cursor: 'pointer' }}
-                                                    required
                                                 >
-                                                    <option value="">End Time</option>
-                                                    {TIMES.map(tm => <option key={tm} value={tm}>{tm}</option>)}
-                                                </select>
+                                                    + Add Time Slot
+                                                </button>
                                             </div>
                                         );
                                     })()}
