@@ -22,7 +22,8 @@ export function RegisterModal({ isOpen, onClose, eventDetails, onSuccess }) {
       const payload = {
         ...formData,
         studentType,
-        eventTitle: eventDetails?.title || 'Unknown Event'
+        eventTitle: eventDetails?.title || 'Unknown Event',
+        slotTiming: eventDetails?.time || null
       };
       await axios.post(`${API_BASE}/register`, payload);
       onSuccess(formData.name, studentType);

@@ -951,7 +951,7 @@ function AdminDashboard() {
                                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13.5px' }}>
                                     <thead>
                                         <tr style={{ background: '#F4F6FA', borderBottom: '1px solid #E2E8F0' }}>
-                                            {['#', 'Name', 'Mobile', 'Email', 'Event', 'Type', 'Kanan ID', 'City', 'Destination', 'Education', 'Referral', 'Date', ''].map(h => (
+                                            {['#', 'Name', 'Mobile', 'Email', 'Event', 'Slot Timing', 'Type', 'Kanan ID', 'City', 'Destination', 'Education', 'Referral', 'Date', ''].map(h => (
                                                 <th key={h} style={{ padding: '13px 14px', textAlign: 'left', fontSize: '11px', fontWeight: '800', color: '#7B8599', textTransform: 'uppercase', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>{h}</th>
                                             ))}
                                         </tr>
@@ -964,6 +964,7 @@ function AdminDashboard() {
                                                 <td style={tdStyle}>{r.mobile}</td>
                                                 <td style={{ ...tdStyle, color: '#0052CC' }}>{r.email}</td>
                                                 <td style={{ ...tdStyle, maxWidth: '160px' }}><div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.event_title}</div></td>
+                                                <td style={{ ...tdStyle, whiteSpace: 'nowrap' }}>{r.slot_timing || '—'}</td>
                                                 <td style={tdStyle}>
                                                     {r.student_type === 'kanan'
                                                         ? <span style={{ background: '#E0FFF0', color: '#00B368', padding: '3px 10px', borderRadius: '50px', fontSize: '11px', fontWeight: '700' }}>Kanan</span>

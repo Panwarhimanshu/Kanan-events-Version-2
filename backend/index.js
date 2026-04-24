@@ -81,6 +81,7 @@ const eventRegistrationSchema = new mongoose.Schema({
     destination: String,
     education_level: String,
     referral_source: String,
+    slot_timing: String,
     created_at: { type: Date, default: Date.now }
 });
 eventRegistrationSchema.set('toJSON', { transform: commonTransform });
@@ -335,13 +336,14 @@ app.post('/api/register', async (req, res) => {
     try {
         const {
             name, mobile, email, eventTitle, studentType,
-            kananId, city, destination, educationLevel, referralSource
+            kananId, city, destination, educationLevel, referralSource, slotTiming
         } = req.body;
 
         const registration = new EventRegistration({
             name, mobile, email, event_title: eventTitle, student_type: studentType,
             kanan_id: kananId || null, city: city || null, destination: destination || null,
-            education_level: educationLevel || null, referral_source: referralSource || null
+            education_level: educationLevel || null, referral_source: referralSource || null,
+            slot_timing: slotTiming || null
         });
         await registration.save();
         res.status(201).json({ success: true, message: 'Registration successful', id: registration.id });
@@ -694,10 +696,10 @@ app.get('/api/registrations/export', async (req, res) => {
         if (event) query.event_title = event;
         const rows = await EventRegistration.find(query).sort({ created_at: -1 });
 
-        const headers = ['ID', 'Name', 'Mobile', 'Email', 'Event', 'Type', 'Kanan ID', 'City', 'Destination', 'Education Level', 'Referral Source', 'Registered At'];
+        const headers = ['ID', 'Name', 'Mobile', 'Email', 'Event', 'Slot Timing', 'Type', 'Kanan ID', 'City', 'Destination', 'Education Level', 'Referral Source', 'Registered At'];
         const csvRows = rows.map(r => [
             r.id, `"${r.name}"`, r.mobile, r.email, `"${r.event_title}"`,
-            r.student_type, r.kanan_id || '', r.city || '', r.destination || '',
+            r.slot_timing || '', r.student_type, r.kanan_id || '', r.city || '', r.destination || '',
             r.education_level || '', r.referral_source || '',
             new Date(r.created_at).toLocaleString('en-IN')
         ].join(','));
