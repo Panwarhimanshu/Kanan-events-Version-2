@@ -6,11 +6,22 @@ const API_BASE = `${API_URL}/api`;
 
 export function RegisterModal({ isOpen, onClose, eventDetails, onSuccess }) {
   const [studentType, setStudentType] = useState('kanan');
+  const [selectedSlot, setSelectedSlot] = useState('');
   const [formData, setFormData] = useState({
     name: '', mobile: '', email: '', city: '',
     destination: '', educationLevel: '',
     kananId: '', referralSource: ''
   });
+
+  const slots = eventDetails?.time
+    ? eventDetails.time.split(',').map(s => s.trim()).filter(Boolean)
+    : [];
+  const multipleSlots = slots.length > 1;
+
+  useEffect(() => {
+    if (slots.length === 1) setSelectedSlot(slots[0]);
+    else setSelectedSlot('');
+  }, [eventDetails?.time]);
 
   if (!isOpen) return null;
 
@@ -18,12 +29,16 @@ export function RegisterModal({ isOpen, onClose, eventDetails, onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (multipleSlots && !selectedSlot) {
+      alert('Please select a time slot.');
+      return;
+    }
     try {
       const payload = {
         ...formData,
         studentType,
         eventTitle: eventDetails?.title || 'Unknown Event',
-        slotTiming: eventDetails?.time || null
+        slotTiming: selectedSlot || eventDetails?.time || null
       };
       await axios.post(`${API_BASE}/register`, payload);
       onSuccess(formData.name, studentType);
@@ -47,6 +62,33 @@ export function RegisterModal({ isOpen, onClose, eventDetails, onSuccess }) {
             <h4>{eventDetails?.title}</h4>
             <p>📍 {eventDetails?.venue}<br />📅 {eventDetails?.date} &nbsp;|&nbsp; ⏰ {eventDetails?.time}</p>
           </div>
+
+          {multipleSlots && (
+            <div className="form-group" style={{ marginBottom: '16px' }}>
+              <label style={{ fontWeight: '600', fontSize: '13px', marginBottom: '6px', display: 'block' }}>Select Time Slot *</label>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {slots.map(slot => (
+                  <button
+                    key={slot}
+                    type="button"
+                    onClick={() => setSelectedSlot(slot)}
+                    style={{
+                      padding: '8px 14px',
+                      borderRadius: '8px',
+                      border: `2px solid ${selectedSlot === slot ? '#0052CC' : '#E2E8F0'}`,
+                      background: selectedSlot === slot ? '#E8F1FF' : '#fff',
+                      color: selectedSlot === slot ? '#0052CC' : '#0B1223',
+                      fontWeight: selectedSlot === slot ? '700' : '500',
+                      fontSize: '13px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    ⏰ {slot}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="student-type-wrap">
             <span className="student-type-label">Are you a Kanan.co student? *</span>
